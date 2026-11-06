@@ -208,7 +208,8 @@ const htmlTemplate = `
                 <tr><td>Gesamte Fläche gerade Wandschalung (VB)</td><td style="text-align: right;">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td></tr>
                 <tr><td>Gesamte Fläche Rundschalung (NB)</td><td style="text-align: right;">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td></tr>
                 <tr><td>Gesamte Fläche Fundamentschalung</td><td style="text-align: right;">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td></tr>
-                <tr class="total-row"><td>Gesamtmenge Bewehrungsstahl</td><td style="text-align: right;"><strong>{{printf "%.2f" .GesamtBewehrung}} t</strong></td></tr>
+                <tr><td>Gesamtmenge Bewehrungsstahl</td><td style="text-align: right;"><strong>{{printf "%.2f" .GesamtBewehrung}} t</strong></td></tr>
+
             </tbody>
         </table>
         {{end}}
