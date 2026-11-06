@@ -180,17 +180,42 @@ const htmlTemplate = `
             <tr><td>Bewehrungsstahl Bodenplatten</td><td>{{printf "%.2f" .BewehrungBodenplatteNB}} t</td></tr>
         </table>
 
+        tSchalung}} m²Gesamtmenge Bewehrungsstahl{{printf "%.2f" .GesamtBewehrung}} t{{end}}
         <h3>3. Gesamtrohbaumassen der Kläranlage</h3>
         <table>
             <thead>
-                <tr><th>Gesamtposition</th><th>Masse / Einheit</th></tr>
+                <tr>
+                    <th>Gesamtposition</th>
+                    <th style="text-align: right;">Masse / Einheit</th>
+                </tr>
             </thead>
             <tbody>
-                <tr><td>Gesamtes Fassungsvermögen</td><td><strong>{{printf "%.2f" .GesamtVolumen}} m³</strong></td></tr>
-                <tr><td>Gesamte Kubatur Beton</td><td><strong>{{printf "%.2f" .GesamtKubaturBeton}} m³</strong></td></tr>
-                <tr><td>Gesamte Fläche gerade Wandschalung (VB)</td><td>{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td></tr>
-                <tr><td>Gesamte Fläche Rundschalung (NB)</td><td>{{printf "%.2f" .GesamtWandSchalungRund}} m²</td></tr>
-Gesamte Fläche Fundamentschalung{{printf "%.2f" .GesamtFundamentSchalung}} m²Gesamtmenge Bewehrungsstahl{{printf "%.2f" .GesamtBewehrung}} t{{end}}
+                <tr>
+                    <td>Gesamtes Fassungsvermögen</td>
+                    <td style="text-align: right;"><strong>{{printf "%.2f" .GesamtVolumen}} m³</strong></td>
+                </tr>
+                <tr>
+                    <td>Die gesamte Kubatur des Betons</td>
+                    <td style="text-align: right;"><strong>{{printf "%.2f" .GesamtKubaturBeton}} m³</strong></td>
+                </tr>
+                <tr>
+                    <td>Gesamte Fläche gerade Wandschalung (VB)</td>
+                    <td style="text-align: right;">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td>
+                </tr>
+                <tr>
+                    <td>Gesamte Fläche Rundschalung (NB)</td>
+                    <td style="text-align: right;">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td>
+                </tr>
+                <tr>
+                    <td>Gesamte Fläche Fundamentschalung</td>
+                    <td style="text-align: right;">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td>
+                </tr>
+                <tr class="total-row">
+                    <td>Gesamtmenge Bewehrungsstahl</td>
+                    <td style="text-align: right;"><strong>{{printf "%.2f" .GesamtBewehrung}} t</strong></td>
+                </tr>
+            </tbody>
+        </table>
 
 
 
