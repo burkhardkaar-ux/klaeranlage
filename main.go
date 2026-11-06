@@ -73,43 +73,44 @@ const htmlTemplate = `
             <button type="submit">Massen berechnen</button>
         </form>
 
-        {{if .Berechnet}}
-        <h2>Berechnungsergebnisse</h2>
-        <h3>1. Rohbaumassen Vorklärbecken</h3>
-        <table>
-            <tr><td>Fassungsvermögen gesamt</td><td class="r"><strong>{{printf "%.2f" .VolumenVB}} m³</strong></td></tr>
-            <tr><td>Kubatur Wandbeton</td><td class="r">{{printf "%.2f" .KubaturWandVB}} m³</td></tr>
-            <tr><td>Kubatur Fundamentbeton</td><td class="r">{{printf "%.2f" .KubaturFundamentVB}} m³</td></tr>
-            <tr><td>Fläche Außenwandschalung</td><td class="r">{{printf "%.2f" .AussenwandschalungVB}} m²</td></tr>
-            <tr><td>Fläche Innenwandschalung</td><td class="r">{{printf "%.2f" .InnenwandschalungVB}} m²</td></tr>
-            <tr><td>Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .FundamentschalungVB}} m²</td></tr>
-            <tr><td>Bewehrungsstahl Wände</td><td class="r">{{printf "%.2f" .WandbewehrungVB}} t</td></tr>
-            <tr><td>Bewehrungsstahl Bodenplatten</td><td class="r">{{printf "%.2f" .BewehrungBodenplatteVB}} t</td></tr>
-        </table>
+            {{if .Berechnet}}
+    <h2>Berechnungsergebnisse</h2>
+    <h3>1. Rohbaumassen Vorklärbecken</h3>
+    <table>
+        <tr><td>Fassungsvermögen gesamt</td><td class="r">{{printf "%.2f" .VolumenVB}} m³</td></tr>
+        <tr><td>Kubatur Wandbeton</td><td class="r">{{printf "%.2f" .KubaturWandVB}} m³</td></tr>
+        <tr><td>Kubatur Fundamentbeton</td><td class="r">{{printf "%.2f" .KubaturFundamentVB}} m³</td></tr>
+        <tr><td>Fläche Außenwandschalung</td><td class="r">{{printf "%.2f" .AussenwandschalungVB}} m²</td></tr>
+        <tr><td>Fläche Innenwandschalung</td><td class="r">{{printf "%.2f" .InnenwandschalungVB}} m²</td></tr>
+        <tr><td>Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .FundamentschalungVB}} m²</td></tr>
+        <tr><td>Bewehrungsstahl Wände</td><td class="r">{{printf "%.2f" .WandbewehrungVB}} t</td></tr>
+        <tr><td>Bewehrungsstahl Bodenplatten</td><td class="r">{{printf "%.2f" .BewehrungBodenplatteVB}} t</td></tr>
+    </table>
 
-        <h3>2. Rohbaumassen Nachklärbecken</h3>
-        <table>
-            <tr><td>Fassungsvermögen gesamt</td><td class="r"><strong>{{printf "%.2f" .VolumenNB}} m³</strong></td></tr>
-            <tr><td>Kubatur Wandbeton</td><td class="r">{{printf "%.2f" .KubaturWandNB}} m³</td></tr>
-            <tr><td>Kubatur Fundamentbeton</td><td class="r">{{printf "%.2f" .KubaturFundamentNB}} m³</td></tr>
-            <tr><td>Fläche Außenwandschalung (Rund)</td><td class="r">{{printf "%.2f" .AussenwandschalungNB}} m²</td></tr>
-            <tr><td>Fläche Innenwandschalung (Rund)</td><td class="r">{{printf "%.2f" .InnenwandschalungNB}} m²</td></tr>
-            <tr><td>Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .FundamentschalungNB}} m²</td></tr>
-            <tr><td>Bewehrungsstahl Wände</td><td class="r">{{printf "%.2f" .WandbewehrungNB}} t</td></tr>
-            <tr><td>Bewehrungsstahl Bodenplatten</td><td class="r">{{printf "%.2f" .BewehrungBodenplatteNB}} t</td></tr>
-        </table>
+    <h3>2. Rohbaumassen Nachklärbecken</h3>
+    <table>
+        <tr><td>Fassungsvermögen gesamt</td><td class="r">{{printf "%.2f" .VolumenNB}} m³</td></tr>
+        <tr><td>Kubatur Wandbeton</td><td class="r">{{printf "%.2f" .KubaturWandNB}} m³</td></tr>
+        <tr><td>Kubatur Fundamentbeton</td><td class="r">{{printf "%.2f" .KubaturFundamentNB}} m³</td></tr>
+        <tr><td>Fläche Außenwandschalung (Rund)</td><td class="r">{{printf "%.2f" .AussenwandschalungNB}} m²</td></tr>
+        <tr><td>Fläche Innenwandschalung (Rund)</td><td class="r">{{printf "%.2f" .InnenwandschalungNB}} m²</td></tr>
+        <tr><td>Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .FundamentschalungNB}} m²</td></tr>
+        <tr><td>Bewehrungsstahl Wände</td><td class="r">{{printf "%.2f" .WandbewehrungNB}} t</td></tr>
+        <tr><td>Bewehrungsstahl Bodenplatten</td><td class="r">{{printf "%.2f" .BewehrungBodenplatteNB}} t</td></tr>
+    </table>
 
-        <h3>3. Gesamtrohbaumassen der Kläranlage</h3>
-        <table>
-            <tr><th>Gesamtposition</th><th class="r">Masse / Einheit</th></tr>
-            <tr><td>Gesamtes Fassungsvermögen</td><td class="r"><strong>{{printf "%.2f" .GesamtVolumen}} m³</strong></td></tr>
-            <tr><td>Die gesamte Kubatur des Betons</td><td class="r"><strong>{{printf "%.2f" .GesamtKubaturBeton}} m³</strong></td></tr>
-            <tr><td>Gesamte Fläche gerade Wandschalung (VB)</td><td class="r">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td></tr>
-            <tr><td>Gesamte Fläche Rundschalung (NB)</td><td class="r">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td></tr>
-            <tr><td>Gesamte Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td></tr>
-            <tr><td>Gesamtmenge Bewehrungsstahl</td><td class="r"><strong>{{printf "%.2f" .GesamtBewehrung}} t</strong></td></tr>
-        </table>
-        {{end}}
+    <h3>3. Gesamtrohbaumassen der Kläranlage</h3>
+    <table>
+        <tr><th>Gesamtposition</th><th class="r">Masse / Einheit</th></tr>
+        <tr><td>Gesamtes Fassungsvermögen</td><td class="r">{{printf "%.2f" .GesamtVolumen}} m³</td></tr>
+        <tr><td>Die gesamte Kubatur des Betons</td><td class="r">{{printf "%.2f" .GesamtKubaturBeton}} m³</td></tr>
+        <tr><td>Gesamte Fläche gerade Wandschalung (VB)</td><td class="r">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td></tr>
+        <tr><td>Gesamte Fläche Rundschalung (NB)</td><td class="r">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td></tr>
+        <tr><td>Gesamte Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td></tr>
+        <tr><td>Gesamtmenge Bewehrungsstahl</td><td class="r">{{printf "%.2f" .GesamtBewehrung}} t</td></tr>
+    </table>
+    {{end}}
+
     </div>
 </body>
 </html>
