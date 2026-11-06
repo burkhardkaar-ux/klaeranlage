@@ -165,9 +165,12 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = "10000" // Renders Standard-Port nutzen
 	}
-	http.ListenAndServe(":"+port, nil)
+	
+	// WICHTIG: Explizit an 0.0.0.0 binden, damit Render die App erkennt!
+	fmt.Println("Server läuft online...")
+	http.ListenAndServe("0.0.0.0:"+port, nil)
 }
 
 func p(s string) float64 {
