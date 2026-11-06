@@ -1,0 +1,3 @@
+module klaeranlage
+
+go 1.27.1
