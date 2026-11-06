@@ -151,36 +151,49 @@ const htmlTemplate = `
             <button type="submit">Massen berechnen</button>
         </form>
 
-        {{if .Berechnet}}
+                {{if .Berechnet}}
         <h2>Berechnungsergebnisse</h2>
         
         <h3>1. Rohbaumassen Vorklärbecken</h3>
         <table>
-            <tr><th>Position</th><th>Wert</th></tr>
-            <tr><td>Fassungsvermögen gesamt</td><td><strong>{{printf "%.2f" .VolumenVB}} m³</strong></td></tr>
-            <tr><td>Kubatur Wandbeton</td><td>{{printf "%.2f" .KubaturWandVB}} m³</td></tr>
-            <tr><td>Kubatur Fundamentbeton</td><td>{{printf "%.2f" .KubaturFundamentVB}} m³</td></tr>
-            <tr><td>Fläche Außenwandschalung</td><td>{{printf "%.2f" .AussenwandschalungVB}} m²</td></tr>
-            <tr><td>Fläche Innenwandschalung</td><td>{{printf "%.2f" .InnenwandschalungVB}} m²</td></tr>
-            <tr><td>Fläche Fundamentschalung</td><td>{{printf "%.2f" .FundamentschalungVB}} m²</td></tr>
-            <tr><td>Bewehrungsstahl Wände</td><td>{{printf "%.2f" .WandbewehrungVB}} t</td></tr>
-            <tr><td>Bewehrungsstahl Bodenplatten</td><td>{{printf "%.2f" .BewehrungBodenplatteVB}} t</td></tr>
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th style="text-align: right;">Wert</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Fassungsvermögen gesamt</td><td style="text-align: right;"><strong>{{printf "%.2f" .VolumenVB}} m³</strong></td></tr>
+                <tr><td>Kubatur Wandbeton</td><td style="text-align: right;">{{printf "%.2f" .KubaturWandVB}} m³</td></tr>
+                <tr><td>Kubatur Fundamentbeton</td><td style="text-align: right;">{{printf "%.2f" .KubaturFundamentVB}} m³</td></tr>
+                <tr><td>Fläche Außenwandschalung</td><td style="text-align: right;">{{printf "%.2f" .AussenwandschalungVB}} m²</td></tr>
+                <tr><td>Fläche Innenwandschalung</td><td style="text-align: right;">{{printf "%.2f" .InnenwandschalungVB}} m²</td></tr>
+                <tr><td>Fläche Fundamentschalung</td><td style="text-align: right;">{{printf "%.2f" .FundamentschalungVB}} m²</td></tr>
+                <tr><td>Bewehrungsstahl Wände</td><td style="text-align: right;">{{printf "%.2f" .WandbewehrungVB}} t</td></tr>
+                <tr><td>Bewehrungsstahl Bodenplatten</td><td style="text-align: right;">{{printf "%.2f" .BewehrungBodenplatteVB}} t</td></tr>
+            </tbody>
         </table>
 
         <h3>2. Rohbaumassen Nachklärbecken</h3>
         <table>
-            <tr><th>Position</th><th>Wert</th></tr>
-            <tr><td>Fassungsvermögen gesamt</td><td><strong>{{printf "%.2f" .VolumenNB}} m³</strong></td></tr>
-            <tr><td>Kubatur Wandbeton</td><td>{{printf "%.2f" .KubaturWandNB}} m³</td></tr>
-            <tr><td>Kubatur Fundamentbeton</td><td>{{printf "%.2f" .KubaturFundamentNB}} m³</td></tr>
-            <tr><td>Fläche Außenwandschalung (Rundschalung)</td><td>{{printf "%.2f" .AussenwandschalungNB}} m²</td></tr>
-            <tr><td>Fläche Innenwandschalung (Rundschalung)</td><td>{{printf "%.2f" .InnenwandschalungNB}} m²</td></tr>
-            <tr><td>Fläche Fundamentschalung</td><td>{{printf "%.2f" .FundamentschalungNB}} m²</td></tr>
-            <tr><td>Bewehrungsstahl Wände</td><td>{{printf "%.2f" .WandbewehrungNB}} t</td></tr>
-            <tr><td>Bewehrungsstahl Bodenplatten</td><td>{{printf "%.2f" .BewehrungBodenplatteNB}} t</td></tr>
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th style="text-align: right;">Wert</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Fassungsvermögen gesamt</td><td style="text-align: right;"><strong>{{printf "%.2f" .VolumenNB}} m³</strong></td></tr>
+                <tr><td>Kubatur Wandbeton</td><td style="text-align: right;">{{printf "%.2f" .KubaturWandNB}} m³</td></tr>
+                <tr><td>Kubatur Fundamentbeton</td><td style="text-align: right;">{{printf "%.2f" .KubaturFundamentNB}} m³</td></tr>
+                <tr><td>Fläche Außenwandschalung (Rundschalung)</td><td style="text-align: right;">{{printf "%.2f" .AussenwandschalungNB}} m²</td></tr>
+                <tr><td>Fläche Innenwandschalung (Rundschalung)</td><td style="text-align: right;">{{printf "%.2f" .InnenwandschalungNB}} m²</td></tr>
+                <tr><td>Fläche Fundamentschalung</td><td style="text-align: right;">{{printf "%.2f" .FundamentschalungNB}} m²</td></tr>
+                <tr><td>Bewehrungsstahl Wände</td><td style="text-align: right;">{{printf "%.2f" .WandbewehrungNB}} t</td></tr>
+                <tr><td>Bewehrungsstahl Bodenplatten</td><td style="text-align: right;">{{printf "%.2f" .BewehrungBodenplatteNB}} t</td></tr>
+            </tbody>
         </table>
 
-        tSchalung}} m²Gesamtmenge Bewehrungsstahl{{printf "%.2f" .GesamtBewehrung}} t{{end}}
         <h3>3. Gesamtrohbaumassen der Kläranlage</h3>
         <table>
             <thead>
@@ -190,35 +203,18 @@ const htmlTemplate = `
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Gesamtes Fassungsvermögen</td>
-                    <td style="text-align: right;"><strong>{{printf "%.2f" .GesamtVolumen}} m³</strong></td>
-                </tr>
-                <tr>
-                    <td>Die gesamte Kubatur des Betons</td>
-                    <td style="text-align: right;"><strong>{{printf "%.2f" .GesamtKubaturBeton}} m³</strong></td>
-                </tr>
-                <tr>
-                    <td>Gesamte Fläche gerade Wandschalung (VB)</td>
-                    <td style="text-align: right;">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td>
-                </tr>
-                <tr>
-                    <td>Gesamte Fläche Rundschalung (NB)</td>
-                    <td style="text-align: right;">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td>
-                </tr>
-                <tr>
-                    <td>Gesamte Fläche Fundamentschalung</td>
-                    <td style="text-align: right;">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td>
-                </tr>
-                <tr class="total-row">
-                    <td>Gesamtmenge Bewehrungsstahl</td>
-                    <td style="text-align: right;"><strong>{{printf "%.2f" .GesamtBewehrung}} t</strong></td>
-                </tr>
+                <tr><td>Gesamtes Fassungsvermögen</td><td style="text-align: right;"><strong>{{printf "%.2f" .GesamtVolumen}} m³</strong></td></tr>
+                <tr><td>Die gesamte Kubatur des Betons</td><td style="text-align: right;"><strong>{{printf "%.2f" .GesamtKubaturBeton}} m³</strong></td></tr>
+                <tr><td>Gesamte Fläche gerade Wandschalung (VB)</td><td style="text-align: right;">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td></tr>
+                <tr><td>Gesamte Fläche Rundschalung (NB)</td><td style="text-align: right;">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td></tr>
+                <tr><td>Gesamte Fläche Fundamentschalung</td><td style="text-align: right;">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td></tr>
+                <tr class="total-row"><td>Gesamtmenge Bewehrungsstahl</td><td style="text-align: right;"><strong>{{printf "%.2f" .GesamtBewehrung}} t</strong></td></tr>
             </tbody>
         </table>
-
-
-
+        {{end}}
+    </div>
+</body>
+</html>
 `
 
 func main() {
