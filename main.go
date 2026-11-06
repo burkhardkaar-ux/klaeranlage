@@ -9,28 +9,95 @@ import (
 	"strconv"
 )
 
-// Struktur für die Formulardaten und Berechnungen
 type AnlageData struct {
 	LaengeVB, BreiteVB, HoeheVB, WandstaerkeVB, FundamentdickeVB, AnzahlVB float64
 	DurchmesserNB, HoeheNB, WandstaerkeNB, FundamentdickeNB, AnzahlNB      float64
 	Berechnet                                                              bool
-	Fehler                                                                 string
 	VolumenVB, KubaturWandVB, AussenwandschalungVB, InnenwandschalungVB    float64
-	KubaturFundamentVB, FundamentschalungVB, WandbewehrungVB, BewehrungBodenplateVB float64
+	KubaturFundamentVB, FundamentschalungVB, WandbewehrungVB, BewehrungBodenplatteVB float64
 	VolumenNB, KubaturWandNB, AussenwandschalungNB, InnenwandschalungNB    float64
 	KubaturFundamentNB, FundamentschalungNB, WandbewehrungNB, BewehrungBodenplatteNB float64
 	GesamtVolumen, GesamtKubaturBeton, GesamtWandSchalungGerad             float64
 	GesamtWandSchalungRund, GesamtFundamentSchalung, GesamtBewehrung       float64
 }
 
-const htmlTemplate = `...` // Vollständiger HTML/CSS-Template-Code für das Webinterface der Massenberechnung
+const htmlTemplate = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Massenberechnung Kläranlage</title>
+    <style>
+        body { font-family: Arial; max-width: 700px; margin: 20px auto; padding: 10px; background: #fafafa; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #333; color: white; }
+        .r { text-align: right; }
+    </style>
+</head>
+<body>
+    <h2>Massenberechnung einer Biologischen Kläranlage</h2>
+    <form method="POST">
+        <h3>Vorklärbecken (Rechteck)</h3>
+        Länge (m): <input type="number" step="0.01" name="laengeVB" value="15.00"><br>
+        Breite (m): <input type="number" step="0.01" name="breiteVB" value="6.00"><br>
+        Höhe (m): <input type="number" step="0.01" name="hoeheVB" value="4.00"><br>
+        Wandstärke (cm): <input type="number" step="0.1" name="wandstaerkeVB" value="35.0"><br>
+        Fundamentstärke (cm): <input type="number" step="0.1" name="fundamentdickeVB" value="40.0"><br>
+        Anzahl: <input type="number" name="anzahlVB" value="2"><br>
+
+        <h3>Nachklärbecken (Rund)</h3>
+        Durchmesser (m): <input type="number" step="0.01" name="durchmesserNB" value="20.00"><br>
+        Höhe (m): <input type="number" step="0.01" name="hoeheNB" value="3.50"><br>
+        Wandstärke (cm): <input type="number" step="0.1" name="wandstaerkeNB" value="30.0"><br>
+        Fundamentstärke (cm): <input type="number" step="0.1" name="fundamentdickeNB" value="40.0"><br>
+        Anzahl: <input type="number" name="anzahlNB" value="2"><br><br>
+        <button type="submit" style="padding: 10px; width: 100%;">Massen berechnen</button>
+    </form>
+
+    {{if .Berechnet}}
+    <h2>Berechnungsergebnisse</h2>
+    <h3>1. Rohbaumassen Vorklärbecken</h3>
+    <table>
+        <tr><td>Fassungsvermögen gesamt</td><td class="r"><strong>{{printf "%.2f" .VolumenVB}} m³</strong></td></tr>
+        <tr><td>Kubatur Wandbeton</td><td class="r">{{printf "%.2f" .KubaturWandVB}} m³</td></tr>
+        <tr><td>Kubatur Fundamentbeton</td><td class="r">{{printf "%.2f" .KubaturFundamentVB}} m³</td></tr>
+        <tr><td>Fläche Außenwandschalung</td><td class="r">{{printf "%.2f" .AussenwandschalungVB}} m²</td></tr>
+        <tr><td>Fläche Innenwandschalung</td><td class="r">{{printf "%.2f" .InnenwandschalungVB}} m²</td></tr>
+        <tr><td>Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .FundamentschalungVB}} m²</td></tr>
+        <tr><td>Bewehrungsstahl Wände</td><td class="r">{{printf "%.2f" .WandbewehrungVB}} t</td></tr>
+        <tr><td>Bewehrungsstahl Bodenplatten</td><td class="r">{{printf "%.2f" .BewehrungBodenplatteVB}} t</td></tr>
+    </table>
+
+    <h3>2. Rohbaumassen Nachklärbecken</h3>
+    <table>
+        <tr><td>Fassungsvermögen gesamt</td><td class="r"><strong>{{printf "%.2f" .VolumenNB}} m³</strong></td></tr>
+        <tr><td>Kubatur Wandbeton</td><td class="r">{{printf "%.2f" .KubaturWandNB}} m³</td></tr>
+        <tr><td>Kubatur Fundamentbeton</td><td class="r">{{printf "%.2f" .KubaturFundamentNB}} m³</td></tr>
+        <tr><td>Fläche Außenwandschalung (Rund)</td><td class="r">{{printf "%.2f" .AussenwandschalungNB}} m²</td></tr>
+        <tr><td>Fläche Innenwandschalung (Rund)</td><td class="r">{{printf "%.2f" .InnenwandschalungNB}} m²</td></tr>
+        <tr><td>Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .FundamentschalungNB}} m²</td></tr>
+        <tr><td>Bewehrungsstahl Wände</td><td class="r">{{printf "%.2f" .WandbewehrungNB}} t</td></tr>
+        <tr><td>Bewehrungsstahl Bodenplatten</td><td class="r">{{printf "%.2f" .BewehrungBodenplatteNB}} t</td></tr>
+    </table>
+
+    <h3>3. Gesamtrohbaumassen der Kläranlage</h3>
+    <table>
+        <tr><th>Gesamtposition</th><th class="r">Masse / Einheit</th></tr>
+        <tr><td>Gesamtes Fassungsvermögen</td><td class="r"><strong>{{printf "%.2f" .GesamtVolumen}} m³</strong></td></tr>
+        <tr><td>Die gesamte Kubatur des Betons</td><td class="r"><strong>{{printf "%.2f" .GesamtKubaturBeton}} m³</strong></td></tr>
+        <tr><td>Gesamte Fläche gerade Wandschalung (VB)</td><td class="r">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td></tr>
+        <tr><td>Gesamte Fläche Rundschalung (NB)</td><td class="r">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td></tr>
+        <tr><td>Gesamte Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td></tr>
+        <tr><td>Gesamtmenge Bewehrungsstahl</td><td class="r"><strong>{{printf "%.2f" .GesamtBewehrung}} t</strong></td></tr>
+    </table>
+    {{end}}
+</body>
+</html>
+`
 
 func main() {
-	funcMap := template.FuncMap{
-		"multiply": func(a, b float64) float64 { return a * b },
-	}
-
-	tmpl := template.Must(template.New("klaeranlage").Funcs(funcMap).Parse(htmlTemplate))
+	tmpl := template.Must(template.New("v").Parse(htmlTemplate))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Del("X-Frame-Options")
@@ -41,27 +108,57 @@ func main() {
 		}
 
 		data := AnlageData{
-			LaengeVB:         parseFormFloat(r.FormValue("laengeVB")),
-			BreiteVB:         parseFormFloat(r.FormValue("breiteVB")),
-			HoeheVB:          parseFormFloat(r.FormValue("hoeheVB")),
-			WandstaerkeVB:    parseFormFloat(r.FormValue("wandstaerkeVB")) / 100.0,
-			FundamentdickeVB: parseFormFloat(r.FormValue("fundamentdickeVB")) / 100.0,
-			AnzahlVB:         parseFormFloat(r.FormValue("anzahlVB")),
-			DurchmesserNB:    parseFormFloat(r.FormValue("durchmesserNB")),
-			HoeheNB:          parseFormFloat(r.FormValue("hoeheNB")),
-			WandstaerkeNB:    parseFormFloat(r.FormValue("wandstaerkeNB")) / 100.0,
-			FundamentdickeNB: parseFormFloat(r.FormValue("fundamentdickeNB")) / 100.0,
-			AnzahlNB:         parseFormFloat(r.FormValue("anzahlNB")),
+			LaengeVB:         p(r.FormValue("laengeVB")),
+			BreiteVB:         p(r.FormValue("breiteVB")),
+			HoeheVB:          p(r.FormValue("hoeheVB")),
+			WandstaerkeVB:    p(r.FormValue("wandstaerkeVB")) / 100.0,
+			FundamentdickeVB: p(r.FormValue("fundamentdickeVB")) / 100.0,
+			AnzahlVB:         p(r.FormValue("anzahlVB")),
+			DurchmesserNB:    p(r.FormValue("durchmesserNB")),
+			HoeheNB:          p(r.FormValue("hoeheNB")),
+			WandstaerkeNB:    p(r.FormValue("wandstaerkeNB")) / 100.0,
+			FundamentdickeNB: p(r.FormValue("fundamentdickeNB")) / 100.0,
+			AnzahlNB:         p(r.FormValue("anzahlNB")),
 		}
 
-		const ueberstandfundament = 0.2
-		const bewehrungbodenplatte = 0.12
-		const bewehrungwandVB = 0.18
-		const bewehrungwandNB = 0.15
+		const ueberstand = 0.2
+		const bBoden = 0.12
+		const bWandVB = 0.18
+		const bWandNB = 0.15
 
-		// Berechnungen Vorklärbecken & Nachklärbecken sowie Gesamtmassen
+		// VB Berechnungen
 		data.VolumenVB = data.LaengeVB * data.BreiteVB * data.HoeheVB * data.AnzahlVB
-		// ... (Berechnungslogik für Kubaturen, Schalungen und Bewehrungen)
+		gVolVB := (data.LaengeVB + 2*data.WandstaerkeVB) * (data.BreiteVB + 2*data.WandstaerkeVB) * data.HoeheVB
+		iVolVB := data.LaengeVB * data.BreiteVB * data.HoeheVB
+		data.KubaturWandVB = (gVolVB - iVolVB) * data.AnzahlVB
+		data.AussenwandschalungVB = (2 * ((data.LaengeVB + 2*data.WandstaerkeVB) + (data.BreiteVB + 2*data.WandstaerkeVB)) * data.HoeheVB) * data.AnzahlVB
+		data.InnenwandschalungVB = (2 * (data.LaengeVB + data.BreiteVB) * data.HoeheVB) * data.AnzahlVB
+		data.KubaturFundamentVB = (data.LaengeVB + 2*(data.WandstaerkeVB+ueberstand)) * (data.BreiteVB + 2*(data.WandstaerkeVB+ueberstand)) * data.FundamentdickeVB * data.AnzahlVB
+		data.FundamentschalungVB = (2 * ((data.LaengeVB + 2*data.WandstaerkeVB) + (data.BreiteVB + 2*data.WandstaerkeVB)) * data.FundamentdickeVB) * data.AnzahlVB
+		data.WandbewehrungVB = data.KubaturWandVB * bWandVB
+		data.BewehrungBodenplatteVB = data.KubaturFundamentVB * bBoden
+
+		// NB Berechnungen
+		rIn := data.DurchmesserNB / 2.0
+		rAus := rIn + data.WandstaerkeNB
+		rFund := rAus + ueberstand
+		data.VolumenNB = math.Pi * math.Pow(rIn, 2) * data.HoeheNB * data.AnzahlNB
+		data.KubaturWandNB = (math.Pi*math.Pow(rAus, 2) - math.Pi*math.Pow(rIn, 2)) * data.HoeheNB * data.AnzahlNB
+		data.AussenwandschalungNB = (2 * math.Pi * rAus * data.HoeheNB) * data.AnzahlNB
+		data.InnenwandschalungNB = (2 * math.Pi * rIn * data.HoeheNB) * data.AnzahlNB
+		data.KubaturFundamentNB = math.Pi * math.Pow(rFund, 2) * data.FundamentdickeNB * data.AnzahlNB
+		data.FundamentschalungNB = (2 * math.Pi * rFund * data.FundamentdickeNB) * data.AnzahlNB
+		data.WandbewehrungNB = data.KubaturWandNB * bWandNB
+		data.BewehrungBodenplatteNB = data.KubaturFundamentNB * bBoden
+
+		// Gesamt
+		data.GesamtVolumen = data.VolumenVB + data.VolumenNB
+		data.GesamtKubaturBeton = data.KubaturWandVB + data.KubaturFundamentVB + data.KubaturWandNB + data.KubaturFundamentNB
+		data.GesamtWandSchalungGerad = data.AussenwandschalungVB + data.InnenwandschalungVB
+		data.GesamtWandSchalungRund = data.AussenwandschalungNB + data.InnenwandschalungNB
+		data.GesamtFundamentSchalung = data.FundamentschalungVB + data.FundamentschalungNB
+		data.GesamtBewehrung = data.WandbewehrungVB + data.BewehrungBodenplatteVB + data.WandbewehrungNB + data.BewehrungBodenplatteNB
+
 		data.Berechnet = true
 		tmpl.Execute(w, data)
 	})
@@ -70,14 +167,10 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-	fmt.Println("Server läuft auf Port " + port)
 	http.ListenAndServe(":"+port, nil)
 }
 
-func parseFormFloat(value string) float64 {
-	val, err := strconv.ParseFloat(value, 64)
-	if err != nil {
-		return 0.0
-	}
-	return val
+func p(s string) float64 {
+	v, _ := strconv.ParseFloat(s, 64)
+	return v
 }
