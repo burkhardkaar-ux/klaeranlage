@@ -224,13 +224,15 @@ func main() {
 		"multiply": func(a, b float64) float64 { return a * b },
 	}
 	tmpl := template.Must(template.New("klaeranlage").Funcs(funcMap).Parse(htmlTemplate))
-		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// Diese Zeile erlaubt das Einbetten auf deiner Homepage:
+			http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// Erlaubt das Einbetten auf burkhardkaar.at
 		w.Header().Del("X-Frame-Options")
-		
+
 		if r.Method != http.MethodPost {
-			tmpl.Execute(w, BerechnungsErgebnis{})
+			tmpl.Execute(w, AnlageData{})
 			return
+		}
+
 		}
 
 		}
