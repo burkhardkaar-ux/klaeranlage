@@ -224,10 +224,15 @@ func main() {
 		"multiply": func(a, b float64) float64 { return a * b },
 	}
 	tmpl := template.Must(template.New("klaeranlage").Funcs(funcMap).Parse(htmlTemplate))
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// Diese Zeile erlaubt das Einbetten auf deiner Homepage:
+		w.Header().Del("X-Frame-Options")
+		
 		if r.Method != http.MethodPost {
-			tmpl.Execute(w, AnlageData{})
+			tmpl.Execute(w, BerechnungsErgebnis{})
 			return
+		}
+
 		}
 		// Parsen der Web-Eingaben
 		data := AnlageData{
