@@ -40,11 +40,20 @@ const htmlTemplate = `
         input[type="number"] { width: 100px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; }
         button { background: #0284c7; color: white; border: none; padding: 12px; cursor: pointer; font-size: 16px; border-radius: 4px; width: 100%; font-weight: bold; transition: background 0.2s; }
         button:hover { background: #0369a1; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; font-size: 14px; }
+                table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; font-size: 14px; }
         th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
+        
+        /* Standard-Hintergrund für die Einzeltabellen (Dunkles Anthrazit) */
         th { background-color: #0f172a; color: white; }
-        tr:nth-child(even) { background-color: #f8fafc; }
+        
+        /* Spezieller blauer Hintergrund NUR für die Gesamttabelle (Tabelle 3) */
+        .blue-header th { background-color: #0284c7; color: white; }
+        
         .r { text-align: right; }
+        
+        /* Vergrößert gezielt den Abstand vor den Berechnungsergebnissen */
+        .result-headline { margin-top: 40px !important; }
+
     </style>
 </head>
 <body>
