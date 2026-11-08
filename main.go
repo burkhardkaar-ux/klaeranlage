@@ -53,27 +53,61 @@ const htmlTemplate = `
     <div class="card">
         <h2>Massenberechnung einer Kläranlage</h2>
         <form method="POST">
-            <div class="grid">
-                <div class="box">
-                    <h3>Vorklärbecken (Rechteck)</h3>
-                    <div class="form-group"><label>Länge (m):</label><input type="number" step="0.01" name="laengeVB" value="60.00"></div>
-                    <div class="form-group"><label>Breite (m):</label><input type="number" step="0.01" name="breiteVB" value="30.00"></div>
-                    <div class="form-group"><label>Höhe (m):</label><input type="number" step="0.01" name="hoeheVB" value="8.00"></div>
-                    <div class="form-group"><label>Wandstärke (cm):</label><input type="number" step="0.1" name="wandstaerkeVB" value="80.0"></div>
-                    <div class="form-group"><label>Fundamentstärke (cm):</label><input type="number" step="0.1" name="fundamentdickeVB" value="90.0"></div>
-                    <div class="form-group"><label>Anzahl:</label><input type="number" name="anzahlVB" value="2"></div>
-                </div>
-                <div class="box">
-                    <h3>Nachklärbecken (Rund)</h3>
-                    <div class="form-group"><label>Durchmesser (m):</label><input type="number" step="0.01" name="durchmesserNB" value="30.00"></div>
-                    <div class="form-group"><label>Höhe (m):</label><input type="number" step="0.01" name="hoeheNB" value="7.00"></div>
-                    <div class="form-group"><label>Wandstärke (cm):</label><input type="number" step="0.1" name="wandstaerkeNB" value="50.0"></div>
-                    <div class="form-group"><label>Fundamentstärke (cm):</label><input type="number" step="0.1" name="fundamentdickeNB" value="80.0"></div>
-                    <div class="form-group"><label>Anzahl:</label><input type="number" name="anzahlNB" value="2"></div>
-                </div>
+    <div class="grid">
+        <div class="box">
+            <h3>Vorklärbecken (Rechteck)</h3>
+            <div class="form-group">
+                <label>Länge (m):</label>
+                <input type="number" step="0.01" name="laengeVB" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{else}}60.00{{end}}">
             </div>
-            <button type="submit">Berechnung starten</button>
-        </form>
+            <div class="form-group">
+                <label>Breite (m):</label>
+                <input type="number" step="0.01" name="breiteVB" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{else}}30.00{{end}}">
+            </div>
+            <div class="form-group">
+                <label>Höhe (m):</label>
+                <input type="number" step="0.01" name="hoeheVB" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{else}}8.00{{end}}">
+            </div>
+            <div class="form-group">
+                <label>Wandstärke (cm):</label>
+                <input type="number" step="0.1" name="wandstaerkeVB" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{else}}80.0{{end}}">
+            </div>
+            <div class="form-group">
+                <label>Fundamentstärke (cm):</label>
+                <input type="number" step="0.1" name="fundamentdickeVB" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{else}}90.0{{end}}">
+            </div>
+            <div class="form-group">
+                <label>Anzahl:</label>
+                <input type="number" name="anzahlVB" value="{{if .Berechnet}}{{.AnzahlVB}}{{else}}2{{end}}">
+            </div>
+        </div>
+        <div class="box">
+            <h3>Nachklärbecken (Rund)</h3>
+            <div class="form-group">
+                <label>Durchmesser (m):</label>
+                <input type="number" step="0.01" name="durchmesserNB" value="{{if .Berechnet}}{{printf "%.2f" .DurchmesserNB}}{{else}}30.00{{end}}">
+            </div>
+            <div class="form-group">
+                <label>Höhe (m):</label>
+                <input type="number" step="0.01" name="hoeheNB" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{else}}7.00{{end}}">
+            </div>
+            <div class="form-group">
+                <label>Wandstärke (cm):</label>
+                <input type="number" step="0.1" name="wandstaerkeNB" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{else}}50.0{{end}}">
+            </div>
+            <div class="form-group">
+                <label>Fundamentstärke (cm):</label>
+                <input type="number" step="0.1" name="fundamentdickeNB" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{else}}80.0{{end}}">
+            </div>
+            <div class="form-group">
+                <label>Anzahl:</label>
+                <input type="number" name="anzahlNB" value="{{if .Berechnet}}{{.AnzahlNB}}{{else}}2{{end}}">
+            </div>
+        </div>
+    </div>
+    <button type="submit">Berechnung starten</button>
+</form>
+
 
         {{if .Berechnet}}
         <h2 class="result-title">Berechnungsergebnisse</h2>
