@@ -10,15 +10,15 @@ import (
 )
 
 type AnlageData struct {
-	LaengeVB, BreiteVB, HoeheVB, WandstaerkeVB, FundamentdickeVB, AnzahlVB float64
-	DurchmesserNB, HoeheNB, WandstaerkeNB, FundamentdickeNB, AnzahlNB      float64
-	Berechnet                                                              bool
-	VolumenVB, KubaturWandVB, AussenwandschalungVB, InnenwandschalungVB    float64
+	LaengeVB, BreiteVB, HoeheVB, WandstaerkeVB, FundamentdickeVB, AnzahlVB           float64
+	DurchmesserNB, HoeheNB, WandstaerkeNB, FundamentdickeNB, AnzahlNB                float64
+	Berechnet                                                                        bool
+	VolumenVB, KubaturWandVB, AussenwandschalungVB, InnenwandschalungVB              float64
 	KubaturFundamentVB, FundamentschalungVB, WandbewehrungVB, BewehrungBodenplatteVB float64
-	VolumenNB, KubaturWandNB, AussenwandschalungNB, InnenwandschalungNB    float64
+	VolumenNB, KubaturWandNB, AussenwandschalungNB, InnenwandschalungNB              float64
 	KubaturFundamentNB, FundamentschalungNB, WandbewehrungNB, BewehrungBodenplatteNB float64
-	GesamtVolumen, GesamtKubaturBeton, GesamtWandSchalungGerad             float64
-	GesamtWandSchalungRund, GesamtFundamentSchalung, GesamtBewehrung       float64
+	GesamtVolumen, GesamtKubaturBeton, GesamtWandSchalungGerad                       float64
+	GesamtWandSchalungRund, GesamtFundamentSchalung, GesamtBewehrung                 float64
 }
 
 const htmlTemplate = `
@@ -37,15 +37,15 @@ const htmlTemplate = `
         @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
         .box { background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; }
         .form-group { margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        label { font-size: 14px; font-weight: bold; color: #475569; }
+        label { font-size: 14px; font-weight: bold; color: #428787; }
         input[type="number"] { width: 100px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; }
-        button { background: #428787; color: white; border: none; padding: 12px; cursor: pointer; font-size: 16px; border-radius: 4px; width: 100%; font-weight: bold; transition: background 0.2s; }
+        button { background: ##428787; color: white; border: none; padding: 12px; cursor: pointer; font-size: 16px; border-radius: 4px; width: 100%; font-weight: bold; transition: background 0.2s; }
         button:hover { background: #336666; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; font-size: 14px; }
         th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
         th { background-color: #428787 !important; color: white !important; }
-        .table-vb tr:nth-child(even), .table-nb tr:nth-child(even) { background-color: #f8fafc; }
-        .table-gesamt tr:nth-child(odd) { background-color: #f8fafc; }
+        .table-vb tr:nth-child(even), .table-nb tr:nth-child(even) { background-color: #428787; }
+        .table-gesamt tr:nth-child(odd) { background-color: #428787; }
         .r { text-align: right; }
     </style>
 </head>
@@ -72,13 +72,13 @@ const htmlTemplate = `
                     <div class="form-group"><label>Anzahl:</label><input type="number" name="anzahlNB" value="2"></div>
                 </div>
             </div>
-            <button type="submit">Massen berechnen</button>
+            <button type="submit">Berechnung starten</button>
         </form>
 
         {{if .Berechnet}}
         <h2 class="result-title">Berechnungsergebnisse</h2>
         
-        <h3>1. Rohbaumassen Vorklärbecken</h3>
+        <h3>Rohbaumassen Vorklärbecken</h3>
         <table class="table-vb">
             <thead>
                 <tr>
@@ -98,7 +98,7 @@ const htmlTemplate = `
             </tbody>
         </table>
 
-        <h3>2. Rohbaumassen Nachklärbecken</h3>
+        <h3>Rohbaumassen Nachklärbecken</h3>
         <table class="table-nb">
             <thead>
                 <tr>
@@ -118,7 +118,7 @@ const htmlTemplate = `
             </tbody>
         </table>
 
-        <h3>3. Gesamtrohbaumassen der Kläranlage</h3>
+        <h3>Gesamtrohbaumassen der Kläranlage</h3>
         <table class="table-gesamt">
             <thead>
                 <tr>
@@ -140,7 +140,6 @@ const htmlTemplate = `
 </body>
 </html>
 `
-
 
 func main() {
 	tmpl := template.Must(template.New("v").Parse(htmlTemplate))
@@ -199,20 +198,19 @@ func main() {
 		data.GesamtKubaturBeton = data.KubaturWandVB + data.KubaturFundamentVB + data.KubaturWandNB + data.KubaturFundamentNB
 		data.GesamtWandSchalungGerad = data.AussenwandschalungVB + data.InnenwandschalungVB
 		data.GesamtWandSchalungRund = data.AussenwandschalungNB + data.InnenwandschalungNB
-data.GesamtFundamentSchalung = data.FundamentschalungVB + data.FundamentschalungNB
-data.GesamtBewehrung = data.WandbewehrungVB + data.BewehrungBodenplatteVB + data.WandbewehrungNB + data.BewehrungBodenplatteNB
-data.Berechnet = true
-tmpl.Execute(w, data)
-})
-port := os.Getenv("PORT")
-if port == "" {
-port = "10000"
-}
-fmt.Println("Server läuft online...")
-http.ListenAndServe("0.0.0.0:"+port, nil)
+		data.GesamtFundamentSchalung = data.FundamentschalungVB + data.FundamentschalungNB
+		data.GesamtBewehrung = data.WandbewehrungVB + data.BewehrungBodenplatteVB + data.WandbewehrungNB + data.BewehrungBodenplatteNB
+		data.Berechnet = true
+		tmpl.Execute(w, data)
+	})
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "10000"
+	}
+	fmt.Println("Server läuft online...")
+	http.ListenAndServe("0.0.0.0:"+port, nil)
 }
 func p(s string) float64 {
-v, _ := strconv.ParseFloat(s, 64)
-return v
+	v, _ := strconv.ParseFloat(s, 64)
+	return v
 }
-
