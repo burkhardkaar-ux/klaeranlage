@@ -70,11 +70,12 @@ const htmlTemplate = `
             </div>
             <div class="form-group">
                 <label>Wandstärke (cm):</label>
-                <input type="number" step="0.1" name="wandstaerkeVB" placeholder="80.0" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}">
+                <!-- Nutzt die Cm-Variable aus Go, damit der Wert nicht auf Meter zurückspringt -->
+                <input type="number" step="0.1" name="wandstaerkeVB" placeholder="80.0" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVBCm}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Fundamentstärke (cm):</label>
-                <input type="number" step="0.1" name="fundamentdickeVB" placeholder="90.0" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{end}}">
+                <input type="number" step="0.1" name="fundamentdickeVB" placeholder="90.0" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVBCm}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Anzahl:</label>
@@ -93,11 +94,11 @@ const htmlTemplate = `
             </div>
             <div class="form-group">
                 <label>Wandstärke (cm):</label>
-                <input type="number" step="0.1" name="wandstaerkeNB" placeholder="50.0" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{end}}">
+                <input type="number" step="0.1" name="wandstaerkeNB" placeholder="50.0" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNBCm}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Fundamentstärke (cm):</label>
-                <input type="number" step="0.1" name="fundamentdickeNB" placeholder="80.0" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{end}}">
+                <input type="number" step="0.1" name="fundamentdickeNB" placeholder="80.0" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNBCm}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Anzahl:</label>
