@@ -23,124 +23,234 @@ type AnlageData struct {
 
 const htmlTemplate = `<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Massenberechnung Kläranlage</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 20px; background: #fafafa; color: #333; }
-        .card { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        h2 { color: #111; border-bottom: 2px solid #eee; padding-bottom: 8px; margin-top: 0; }
-        .result-title { margin-top: 40px !important; }
-        h3 { color: #428787; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-        .box { background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; }
-        .form-group { margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        label { font-size: 14px; font-weight: bold; color: #475569; }
-        input[type="number"] { width: 100px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; }
-        button { background: #428787; color: white; border: none; padding: 12px; cursor: pointer; font-size: 16px; border-radius: 4px; width: 100%; font-weight: bold; transition: background 0.2s; }
-        button:hover { background: #336666; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; font-size: 14px; }
-        th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
-        th { background-color: #428787 !important; color: white !important; }
-        .table-vb tr:nth-child(even), .table-nb tr:nth-child(even) { background-color: #f8fafc; }
-        .table-gesamt tr:nth-child(odd) { background-color: #f8fafc; }
-        .r { text-align: right; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            max-width: 800px;
+            position: fixed;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fafafa;
+            color: #333;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #111;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+
+        .result-title {
+            margin-top: 40px !important;
+        }
+
+        h3 {
+            color: #428787;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 4px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #475569;
+        }
+
+        input[type="number"] {
+            width: 100px;
+            padding: 6px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            text-align: right;
+        }
+
+        button {
+            background: #428787;
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            width: 100%;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #336666;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #428787 !important;
+            color: white !important;
+        }
+
+        .table-vb tr:nth-child(even),
+        .table-nb tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .table-gesamt tr:nth-child(odd) {
+            background-color: #f8fafc;
+        }
+
+        .r {
+            text-align: right;
+        }
+
     </style>
 </head>
+
 <body>
     <div class="card">
-        <h2>Massenberechnung einer Kläranlage</h2>
-        
+        <h2>Massenberechnung Kläranlage</h2>
+
         <form method="POST" id="calcForm">
-    <div class="grid">
-        <div class="box">
-            <h3>Vorklärbecken (Rechteck)</h3>
-            <div class="form-group">
-                <label>Länge (m):</label>
-                <!-- required hinzugefügt -->
-                <input type="number" step="0.01" name="laengeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{end}}" required>
+            <div class="grid">
+                <div class="box">
+                    <h3>Vorklärbecken (Rechteck)</h3>
+                    <div class="form-group">
+                        <label>Länge (m):</label>
+                        <!-- required hinzugefügt -->
+                        <input type="number" step="0.01" name="laengeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{end}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Breite (m):</label>
+                        <input type="number" step="0.01" name="breiteVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{end}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Höhe (m):</label>
+                        <input type="number" step="0.01" name="hoeheVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{end}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Wandstärke (cm):</label>
+                        <input type="number" step="0.1" name="wandstaerkeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fundamentstärke (cm):</label>
+                        <input type="number" step="0.1" name="fundamentdickeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{end}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Anzahl:</label>
+                        <input type="number" name="anzahlVB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlVB}}{{end}}" required>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Nachklärbecken (Rund)</h3>
+                    <div class="form-group">
+                        <label>Durchmesser (m):</label>
+                        <input type="number" step="0.01" name="durchmesserNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .DurchmesserNB}}{{end}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Höhe (m):</label>
+                        <input type="number" step="0.01" name="hoeheNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{end}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Wandstärke (cm):</label>
+                        <input type="number" step="0.1" name="wandstaerkeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{end}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fundamentstärke (cm):</label>
+                        <input type="number" step="0.1" name="fundamentdickeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{end}}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Anzahl:</label>
+                        <input type="number" name="anzahlNB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlNB}}{{end}}" required>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Breite (m):</label>
-                <input type="number" step="0.01" name="breiteVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{end}}" required>
-            </div>
-            <div class="form-group">
-                <label>Höhe (m):</label>
-                <input type="number" step="0.01" name="hoeheVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{end}}" required>
-            </div>
-            <div class="form-group">
-                <label>Wandstärke (cm):</label>
-                <input type="number" step="0.1" name="wandstaerkeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}" required>
-            </div>
-            <div class="form-group">
-                <label>Fundamentstärke (cm):</label>
-                <input type="number" step="0.1" name="fundamentdickeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{end}}" required>
-            </div>
-            <div class="form-group">
-                <label>Anzahl:</label>
-                <input type="number" name="anzahlVB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlVB}}{{end}}" required>
-            </div>
-        </div>
-        <div class="box">
-            <h3>Nachklärbecken (Rund)</h3>
-            <div class="form-group">
-                <label>Durchmesser (m):</label>
-                <input type="number" step="0.01" name="durchmesserNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .DurchmesserNB}}{{end}}" required>
-            </div>
-            <div class="form-group">
-                <label>Höhe (m):</label>
-                <input type="number" step="0.01" name="hoeheNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{end}}" required>
-            </div>
-            <div class="form-group">
-                <label>Wandstärke (cm):</label>
-                <input type="number" step="0.1" name="wandstaerkeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{end}}" required>
-            </div>
-            <div class="form-group">
-                <label>Fundamentstärke (cm):</label>
-                <input type="number" step="0.1" name="fundamentdickeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{end}}" required>
-            </div>
-            <div class="form-group">
-                <label>Anzahl:</label>
-                <input type="number" name="anzahlNB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlNB}}{{end}}" required>
-            </div>
-        </div>
-    </div>
-    <!-- ID und standardmäßig disabled hinzugefügt -->
-    <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
-</form>
+            <!-- ID und standardmäßig disabled hinzugefügt -->
+            <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
+        </form>
 
-<script>
-    const form = document.getElementById('calcForm');
-    const button = document.getElementById('submitBtn');
-    const inputs = form.querySelectorAll('input[required]');
+        <script>
+            const form = document.getElementById('calcForm');
+            const button = document.getElementById('submitBtn');
+            const inputs = form.querySelectorAll('input[required]');
 
-    function checkInputs() {
-        // Prüft, ob ALLE erforderlichen Felder gültig ausgefüllt sind
-        const allFilled = form.checkValidity();
-        button.disabled = !allFilled;
-        
-        // Optisches Feedback (Ausgrauen)
-        if (allFilled) {
-            button.style.backgroundColor = '#428787';
-            button.style.cursor = 'pointer';
-        } else {
-            button.style.backgroundColor = '#94a3b8'; // Grau
-            button.style.cursor = 'not-allowed';
-        }
-    }
+            function checkInputs() {
+                // Prüft, ob ALLE erforderlichen Felder gültig ausgefüllt sind
+                const allFilled = form.checkValidity();
+                button.disabled = !allFilled;
 
-    // Bei jeder Tastatureingabe oder Änderung prüfen
-    form.addEventListener('input', checkInputs);
+                // Optisches Feedback (Ausgrauen)
+                if (allFilled) {
+                    button.style.backgroundColor = '#428787';
+                    button.style.cursor = 'pointer';
+                } else {
+                    button.style.backgroundColor = '#94a3b8'; // Grau
+                    button.style.cursor = 'not-allowed';
+                }
+            }
 
-    // Einmaliger Check beim Laden der Seite (falls Werte vom Go-Backend drinstehen)
-    document.addEventListener('DOMContentLoaded', checkInputs);
-</script>
+            // Bei jeder Tastatureingabe oder Änderung prüfen
+            form.addEventListener('input', checkInputs);
+
+            // Einmaliger Check beim Laden der Seite (falls Werte vom Go-Backend drinstehen)
+            document.addEventListener('DOMContentLoaded', checkInputs);
+
+        </script>
 
 
         {{if .Berechnet}}
         <h2 class="result-title">Berechnungsergebnisse</h2>
-        
+
         <h3>Rohbaumassen Vorklärbecken</h3>
         <table class="table-vb">
             <thead>
@@ -150,14 +260,38 @@ const htmlTemplate = `<!DOCTYPE html>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Fassungsvermögen gesamt</td><td class="r">{{printf "%.2f" .VolumenVB}} m³</td></tr>
-                <tr><td>Kubatur Wandbeton</td><td class="r">{{printf "%.2f" .KubaturWandVB}} m³</td></tr>
-                <tr><td>Kubatur Fundamentbeton</td><td class="r">{{printf "%.2f" .KubaturFundamentVB}} m³</td></tr>
-                <tr><td>Fläche Außenwandschalung</td><td class="r">{{printf "%.2f" .AussenwandschalungVB}} m²</td></tr>
-                <tr><td>Fläche Innenwandschalung</td><td class="r">{{printf "%.2f" .InnenwandschalungVB}} m²</td></tr>
-                <tr><td>Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .FundamentschalungVB}} m²</td></tr>
-                <tr><td>Bewehrungsstahl Wände</td><td class="r">{{printf "%.2f" .WandbewehrungVB}} t</td></tr>
-                <tr><td>Bewehrungsstahl Bodenplatten</td><td class="r">{{printf "%.2f" .BewehrungBodenplatteVB}} t</td></tr>
+                <tr>
+                    <td>Fassungsvermögen gesamt</td>
+                    <td class="r">{{printf "%.2f" .VolumenVB}} m³</td>
+                </tr>
+                <tr>
+                    <td>Kubatur Wandbeton</td>
+                    <td class="r">{{printf "%.2f" .KubaturWandVB}} m³</td>
+                </tr>
+                <tr>
+                    <td>Kubatur Fundamentbeton</td>
+                    <td class="r">{{printf "%.2f" .KubaturFundamentVB}} m³</td>
+                </tr>
+                <tr>
+                    <td>Fläche Außenwandschalung</td>
+                    <td class="r">{{printf "%.2f" .AussenwandschalungVB}} m²</td>
+                </tr>
+                <tr>
+                    <td>Fläche Innenwandschalung</td>
+                    <td class="r">{{printf "%.2f" .InnenwandschalungVB}} m²</td>
+                </tr>
+                <tr>
+                    <td>Fläche Fundamentschalung</td>
+                    <td class="r">{{printf "%.2f" .FundamentschalungVB}} m²</td>
+                </tr>
+                <tr>
+                    <td>Bewehrungsstahl Wände</td>
+                    <td class="r">{{printf "%.2f" .WandbewehrungVB}} t</td>
+                </tr>
+                <tr>
+                    <td>Bewehrungsstahl Bodenplatten</td>
+                    <td class="r">{{printf "%.2f" .BewehrungBodenplatteVB}} t</td>
+                </tr>
             </tbody>
         </table>
 
@@ -170,14 +304,38 @@ const htmlTemplate = `<!DOCTYPE html>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Fassungsvermögen gesamt</td><td class="r">{{printf "%.2f" .VolumenNB}} m³</td></tr>
-                <tr><td>Kubatur Wandbeton</td><td class="r">{{printf "%.2f" .KubaturWandNB}} m³</td></tr>
-                <tr><td>Kubatur Fundamentbeton</td><td class="r">{{printf "%.2f" .KubaturFundamentNB}} m³</td></tr>
-                <tr><td>Fläche Außenwandschalung (Rund)</td><td class="r">{{printf "%.2f" .AussenwandschalungNB}} m²</td></tr>
-                <tr><td>Fläche Innenwandschalung (Rund)</td><td class="r">{{printf "%.2f" .InnenwandschalungNB}} m²</td></tr>
-                <tr><td>Fläche Fundamentschalung</td><td class="r">{{printf "%.2f" .FundamentschalungNB}} m²</td></tr>
-                <tr><td>Bewehrungsstahl Wände</td><td class="r">{{printf "%.2f" .WandbewehrungNB}} t</td></tr>
-                <tr><td>Bewehrungsstahl Bodenplatten</td><td class="r">{{printf "%.2f" .BewehrungBodenplatteNB}} t</td></tr>
+                <tr>
+                    <td>Fassungsvermögen gesamt</td>
+                    <td class="r">{{printf "%.2f" .VolumenNB}} m³</td>
+                </tr>
+                <tr>
+                    <td>Kubatur Wandbeton</td>
+                    <td class="r">{{printf "%.2f" .KubaturWandNB}} m³</td>
+                </tr>
+                <tr>
+                    <td>Kubatur Fundamentbeton</td>
+                    <td class="r">{{printf "%.2f" .KubaturFundamentNB}} m³</td>
+                </tr>
+                <tr>
+                    <td>Fläche Außenwandschalung (Rund)</td>
+                    <td class="r">{{printf "%.2f" .AussenwandschalungNB}} m²</td>
+                </tr>
+                <tr>
+                    <td>Fläche Innenwandschalung (Rund)</td>
+                    <td class="r">{{printf "%.2f" .InnenwandschalungNB}} m²</td>
+                </tr>
+                <tr>
+                    <td>Fläche Fundamentschalung</td>
+                    <td class="r">{{printf "%.2f" .FundamentschalungNB}} m²</td>
+                </tr>
+                <tr>
+                    <td>Bewehrungsstahl Wände</td>
+                    <td class="r">{{printf "%.2f" .WandbewehrungNB}} t</td>
+                </tr>
+                <tr>
+                    <td>Bewehrungsstahl Bodenplatten</td>
+                    <td class="r">{{printf "%.2f" .BewehrungBodenplatteNB}} t</td>
+                </tr>
             </tbody>
         </table>
 
@@ -190,18 +348,38 @@ const htmlTemplate = `<!DOCTYPE html>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>Gesamtes Fassungsvermögen</td><td class="r">{{printf "%.2f" .GesamtVolumen}} m³</td></tr>
-                <tr><td>Gesamte Kubatur Beton</td><td class="r">{{printf "%.2f" .GesamtKubaturBeton}} m³</td></tr>
-                <tr><td>Gesamte Wandschalung (Gerade)</td><td class="r">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td></tr>
-                <tr><td>Gesamte Wandschalung (Rund)</td><td class="r">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td></tr>
-                <tr><td>Gesamte Fundamentschalung</td><td class="r">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td></tr>
-                <tr><td>Gesamter Bewehrungsstahl</td><td class="r">{{printf "%.2f" .GesamtBewehrung}} t</td></tr>
+                <tr>
+                    <td>Gesamtes Fassungsvermögen</td>
+                    <td class="r">{{printf "%.2f" .GesamtVolumen}} m³</td>
+                </tr>
+                <tr>
+                    <td>Gesamte Kubatur Beton</td>
+                    <td class="r">{{printf "%.2f" .GesamtKubaturBeton}} m³</td>
+                </tr>
+                <tr>
+                    <td>Gesamte Wandschalung (Gerade)</td>
+                    <td class="r">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td>
+                </tr>
+                <tr>
+                    <td>Gesamte Wandschalung (Rund)</td>
+                    <td class="r">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td>
+                </tr>
+                <tr>
+                    <td>Gesamte Fundamentschalung</td>
+                    <td class="r">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td>
+                </tr>
+                <tr>
+                    <td>Gesamter Bewehrungsstahl</td>
+                    <td class="r">{{printf "%.2f" .GesamtBewehrung}} t</td>
+                </tr>
             </tbody>
         </table>
         {{end}}
     </div>
 </body>
+
 </html>
+
 `
 
 func main() {
