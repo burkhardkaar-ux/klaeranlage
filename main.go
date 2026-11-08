@@ -39,13 +39,13 @@ const htmlTemplate = `
         .form-group { margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
         label { font-size: 14px; font-weight: bold; color: #475569; }
         input[type="number"] { width: 100px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; }
-        button { background: ##428787; color: white; border: none; padding: 12px; cursor: pointer; font-size: 16px; border-radius: 4px; width: 100%; font-weight: bold; transition: background 0.2s; }
+        button { background: #428787; color: white; border: none; padding: 12px; cursor: pointer; font-size: 16px; border-radius: 4px; width: 100%; font-weight: bold; transition: background 0.2s; }
         button:hover { background: #336666; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 20px; font-size: 14px; }
         th, td { border: 1px solid #e2e8f0; padding: 8px 12px; text-align: left; }
         th { background-color: #428787 !important; color: white !important; }
         .table-vb tr:nth-child(even), .table-nb tr:nth-child(even) { background-color: #428787; }
-        .table-gesamt tr:nth-child(odd) { background-color: #428787; }
+        .table-gesamt tr:nth-child(odd) { background-color: #f8fafc; }
         .r { text-align: right; }
     </style>
 </head>
