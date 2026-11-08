@@ -229,149 +229,164 @@ const htmlTemplate = `
             <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
         </form><!-- Ergänze diese CSS-Styles (entweder in deiner CSS-Datei oder im <style>-Block) -->
         <style>
-    /* Standard-Design für den aktiven Button */
-    button {
-        background: #428787;
-        color: white;
-        border: none;
-        padding: 12px;
-        cursor: pointer;
-        font-size: 16px;
-        border-radius: 4px;
-        width: 100%;
-        font-weight: bold;
-        transition: all 0.2s;
-    }
+            /* Standard-Design für den aktiven Button */
+            button {
+                background: #428787;
+                color: white;
+                border: none;
+                padding: 12px;
+                cursor: pointer;
+                font-size: 16px;
+                border-radius: 4px;
+                width: 100%;
+                font-weight: bold;
+                transition: all 0.2s;
+            }
 
-    button:hover:not(:disabled) {
-        background: #336666;
-    }
+            button:hover:not(:disabled) {
+                background: #336666;
+            }
 
-    /* Zwingt den inaktiven Button, das helle Grau anzunehmen */
-    button:disabled {
-        background: #cbd5e1 !important; /* Überschreibt das #428787 */
-        color: #94a3b8 !important;      /* Dunklerer grauer Text */
-        cursor: not-allowed !important; /* Zeigt das Blockieren-Symbol */
-        opacity: 0.7;
-    }
-</style>
-        
-<script>
-    // Nutzt die korrekte ID 'calcForm' Ihres Formulars
-    const form = document.getElementById('calcForm');
-    const submitBtn = document.getElementById('submitBtn');
+            /* Zwingt den inaktiven Button, das helle Grau anzunehmen */
+            button:disabled {
+                background: #cbd5e1 !important;
+                /* Überschreibt das #428787 */
+                color: #94a3b8 !important;
+                /* Dunklerer grauer Text */
+                cursor: not-allowed !important;
+                /* Zeigt das Blockieren-Symbol */
+                opacity: 0.7;
+            }
 
-    function pruefeFormular() {
-        // checkValidity() prüft automatisch alle Felder mit "required"
-        if (form && form.checkValidity()) {
-            submitBtn.removeAttribute('disabled');
-        } else {
-            submitBtn.setAttribute('disabled', 'true');
-        }
-    }
+        </style>
 
-    if (form) {
-        // Lauscht auf jede Eingabe in den Formularfeldern
-        form.addEventListener('input', pruefeFormular);
-        
-        // Einmal beim Laden ausführen (falls Go bereits Werte mitgegeben hat)
-        pruefeFormular();
-    }
-</script>
+        <script>
+            // Nutzt die korrekte ID 'calcForm' Ihres Formulars
+            const form = document.getElementById('calcForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            function pruefeFormular() {
+                // checkValidity() prüft automatisch alle Felder mit "required"
+                if (form && form.checkValidity()) {
+                    submitBtn.removeAttribute('disabled');
+                } else {
+                    submitBtn.setAttribute('disabled', 'true');
+                }
+            }
+
+            if (form) {
+                // Lauscht auf jede Eingabe in den Formularfeldern
+                form.addEventListener('input', pruefeFormular);
+
+                // Einmal beim Laden ausführen (falls Go bereits Werte mitgegeben hat)
+                pruefeFormular();
+            }
+
+        </script>
 
 
         {{if .Berechnet}}
         <h2 class="result-title">Berechnungsergebnisse</h2>
 
-        <h3>Rohbaumassen Vorklärbecken</h3>
-        <table class="table-vb">
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th class="r">Wert</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Fassungsvermögen gesamt</td>
-                    <td class="r">{{printf "%.2f" .VolumenVB}} m³</td>
-                </tr>
-                <tr>
-                    <td>Kubatur Wandbeton</td>
-                    <td class="r">{{printf "%.2f" .KubaturWandVB}} m³</td>
-                </tr>
-                <tr>
-                    <td>Kubatur Fundamentbeton</td>
-                    <td class="r">{{printf "%.2f" .KubaturFundamentVB}} m³</td>
-                </tr>
-                <tr>
-                    <td>Fläche Außenwandschalung</td>
-                    <td class="r">{{printf "%.2f" .AussenwandschalungVB}} m²</td>
-                </tr>
-                <tr>
-                    <td>Fläche Innenwandschalung</td>
-                    <td class="r">{{printf "%.2f" .InnenwandschalungVB}} m²</td>
-                </tr>
-                <tr>
-                    <td>Fläche Fundamentschalung</td>
-                    <td class="r">{{printf "%.2f" .FundamentschalungVB}} m²</td>
-                </tr>
-                <tr>
-                    <td>Bewehrungsstahl Wände</td>
-                    <td class="r">{{printf "%.2f" .WandbewehrungVB}} t</td>
-                </tr>
-                <tr>
-                    <td>Bewehrungsstahl Bodenplatten</td>
-                    <td class="r">{{printf "%.2f" .BewehrungBodenplatteVB}} t</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Neues Grid für die zweispaltige Aufteilung der Ergebnisse -->
+        <div class="grid">
+            <!-- Linke Spalte: Vorklärbecken -->
+            <div class="box">
+                <h3>Rohbaumassen Vorklärbecken</h3>
+                <table class="table-vb">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th class="r">Wert</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fassungsvermögen gesamt</td>
+                            <td class="r">{{printf "%.2f" .VolumenVB}} m³</td>
+                        </tr>
+                        <tr>
+                            <td>Kubatur Wandbeton</td>
+                            <td class="r">{{printf "%.2f" .KubaturWandVB}} m³</td>
+                        </tr>
+                        <tr>
+                            <td>Kubatur Fundamentbeton</td>
+                            <td class="r">{{printf "%.2f" .KubaturFundamentVB}} m³</td>
+                        </tr>
+                        <tr>
+                            <td>Fläche Außenwandschalung</td>
+                            <td class="r">{{printf "%.2f" .AussenwandschalungVB}} m²</td>
+                        </tr>
+                        <tr>
+                            <td>Fläche Innenwandschalung</td>
+                            <td class="r">{{printf "%.2f" .InnenwandschalungVB}} m²</td>
+                        </tr>
+                        <tr>
+                            <td>Fläche Fundamentschalung</td>
+                            <td class="r">{{printf "%.2f" .FundamentschalungVB}} m²</td>
+                        </tr>
+                        <tr>
+                            <td>Bewehrungsstahl Wände</td>
+                            <td class="r">{{printf "%.2f" .WandbewehrungVB}} t</td>
+                        </tr>
+                        <tr>
+                            <td>Bewehrungsstahl Bodenplatten</td>
+                            <td class="r">{{printf "%.2f" .BewehrungBodenplatteVB}} t</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <h3>Rohbaumassen Nachklärbecken</h3>
-        <table class="table-nb">
-            <thead>
-                <tr>
-                    <th>Position</th>
-                    <th class="r">Wert</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Fassungsvermögen gesamt</td>
-                    <td class="r">{{printf "%.2f" .VolumenNB}} m³</td>
-                </tr>
-                <tr>
-                    <td>Kubatur Wandbeton</td>
-                    <td class="r">{{printf "%.2f" .KubaturWandNB}} m³</td>
-                </tr>
-                <tr>
-                    <td>Kubatur Fundamentbeton</td>
-                    <td class="r">{{printf "%.2f" .KubaturFundamentNB}} m³</td>
-                </tr>
-                <tr>
-                    <td>Fläche Außenwandschalung (Rund)</td>
-                    <td class="r">{{printf "%.2f" .AussenwandschalungNB}} m²</td>
-                </tr>
-                <tr>
-                    <td>Fläche Innenwandschalung (Rund)</td>
-                    <td class="r">{{printf "%.2f" .InnenwandschalungNB}} m²</td>
-                </tr>
-                <tr>
-                    <td>Fläche Fundamentschalung</td>
-                    <td class="r">{{printf "%.2f" .FundamentschalungNB}} m²</td>
-                </tr>
-                <tr>
-                    <td>Bewehrungsstahl Wände</td>
-                    <td class="r">{{printf "%.2f" .WandbewehrungNB}} t</td>
-                </tr>
-                <tr>
-                    <td>Bewehrungsstahl Bodenplatten</td>
-                    <td class="r">{{printf "%.2f" .BewehrungBodenplatteNB}} t</td>
-                </tr>
-            </tbody>
-        </table>
+            <!-- Rechte Spalte: Nachklärbecken -->
+            <div class="box">
+                <h3>Rohbaumassen Nachklärbecken</h3>
+                <table class="table-nb">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th class="r">Wert</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fassungsvermögen gesamt</td>
+                            <td class="r">{{printf "%.2f" .VolumenNB}} m³</td>
+                        </tr>
+                        <tr>
+                            <td>Kubatur Wandbeton</td>
+                            <td class="r">{{printf "%.2f" .KubaturWandNB}} m³</td>
+                        </tr>
+                        <tr>
+                            <td>Kubatur Fundamentbeton</td>
+                            <td class="r">{{printf "%.2f" .KubaturFundamentNB}} m³</td>
+                        </tr>
+                        <tr>
+                            <td>Fläche Außenwandschalung (Rund)</td>
+                            <td class="r">{{printf "%.2f" .AussenwandschalungNB}} m²</td>
+                        </tr>
+                        <tr>
+                            <td>Fläche Innenwandschalung (Rund)</td>
+                            <td class="r">{{printf "%.2f" .InnenwandschalungNB}} m²</td>
+                        </tr>
+                        <tr>
+                            <td>Fläche Fundamentschalung</td>
+                            <td class="r">{{printf "%.2f" .FundamentschalungNB}} m²</td>
+                        </tr>
+                        <tr>
+                            <td>Bewehrungsstahl Wände</td>
+                            <td class="r">{{printf "%.2f" .WandbewehrungNB}} t</td>
+                        </tr>
+                        <tr>
+                            <td>Bewehrungsstahl Bodenplatten</td>
+                            <td class="r">{{printf "%.2f" .BewehrungBodenplatteNB}} t</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-        <h3>Gesamtrohbaumassen</h3>
+        <!-- Die Gesamtmassen können darunter über die volle Breite stehen -->
+        <h3>Gesamtmassen Projekt</h3>
         <table class="table-gesamt">
             <thead>
                 <tr>
