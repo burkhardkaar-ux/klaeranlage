@@ -69,12 +69,12 @@ const htmlTemplate = `
                 <input type="number" step="0.01" name="hoeheVB" placeholder="8.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{end}}">
             </div>
             <div class="form-group">
-                <label>Wandstärke (m):</label>
-                <input type="number" step="0.1" name="wandstaerkeVB" placeholder="0.80" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}">
+                <label>Wandstärke (cm):</label>
+                <input type="number" step="0.1" name="wandstaerkeVB" placeholder="80.0" value="{{if .Berechnet}}{{printf "%.1f" (cm .WandstaerkeVB)}}{{end}}">
             </div>
             <div class="form-group">
-                <label>Fundamentstärke (m):</label>
-                <input type="number" step="0.1" name="fundamentdickeVB" placeholder="0.90" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{end}}">
+                <label>Fundamentstärke (cm):</label>
+                <input type="number" step="0.1" name="fundamentdickeVB" placeholder="90.0" value="{{if .Berechnet}}{{printf "%.1f" (cm .FundamentdickeVB)}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Anzahl:</label>
@@ -92,12 +92,12 @@ const htmlTemplate = `
                 <input type="number" step="0.01" name="hoeheNB" placeholder="7.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{end}}">
             </div>
             <div class="form-group">
-                <label>Wandstärke (m):</label>
-                <input type="number" step="0.1" name="wandstaerkeNB" placeholder="0.50" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{end}}">
+                <label>Wandstärke (cm):</label>
+                <input type="number" step="0.1" name="wandstaerkeNB" placeholder="50.0" value="{{if .Berechnet}}{{printf "%.1f" (cm .WandstaerkeNB)}}{{end}}">
             </div>
             <div class="form-group">
-                <label>Fundamentstärke (m):</label>
-                <input type="number" step="0.1" name="fundamentdickeNB" placeholder="0.80" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{end}}">
+                <label>Fundamentstärke (cm):</label>
+                <input type="number" step="0.1" name="fundamentdickeNB" placeholder="80.0" value="{{if .Berechnet}}{{printf "%.1f" (cm .FundamentdickeNB)}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Anzahl:</label>
