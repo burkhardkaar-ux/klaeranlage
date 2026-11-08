@@ -21,7 +21,9 @@ type AnlageData struct {
 	GesamtWandSchalungRund, GesamtFundamentSchalung, GesamtBewehrung                 float64
 }
 
-const htmlTemplate = `<!DOCTYPE html>
+const htmlTemplate = `
+
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -33,7 +35,6 @@ const htmlTemplate = `<!DOCTYPE html>
         body {
             font-family: 'Roboto', sans-serif;
             max-width: 800px;
-            /* position: fixed; GELÖSCHT – blockiert sonst das Scrollen auf Handys */
             margin: 20px auto;
             padding: 20px;
             background: #fafafa;
@@ -47,15 +48,20 @@ const htmlTemplate = `<!DOCTYPE html>
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        h2 {
+        h1 {
             color: #111;
             border-bottom: 2px solid #eee;
             padding-bottom: 8px;
             margin-top: 0;
+            font-size: 24px;
         }
 
-        .result-title {
-            margin-top: 40px !important;
+        h2 {
+            color: #111;
+            margin-top: 20px;
+            font-size: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 4px;
         }
 
         h3 {
@@ -63,6 +69,7 @@ const htmlTemplate = `<!DOCTYPE html>
             margin-bottom: 12px;
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 4px;
+            font-size: 18px;
         }
 
         .grid {
@@ -238,7 +245,7 @@ const htmlTemplate = `<!DOCTYPE html>
                     button.style.backgroundColor = '#428787';
                     button.style.cursor = 'pointer';
                 } else {
-                    button.style.backgroundColor = '#94a3b8'; // Grau
+                    button.style.backgroundColor = '#94a3b8;'; // Grau
                     button.style.cursor = 'not-allowed';
                 }
             }
@@ -343,7 +350,7 @@ const htmlTemplate = `<!DOCTYPE html>
             </tbody>
         </table>
 
-        <h3>Gesamtmassen Projekt</h3>
+        <h3>Gesamtrohbaumassen</h3>
         <table class="table-gesamt">
             <thead>
                 <tr>
