@@ -167,12 +167,12 @@ const htmlTemplate = `
         /* Erzwingt eine einheitliche Spaltenaufteilung in allen Tabellen */
         table th:first-child,
         table td:first-child {
-            width: 70%;
+            width: 65%;
         }
 
         table th:last-child,
         table td:last-child {
-            width: 30%;
+            width: 35%;
         }
 
     </style>
