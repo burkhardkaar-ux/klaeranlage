@@ -241,6 +241,7 @@ table th:last-child, table td:last-child {
                     </div>
                 </div>
             </div>
+            <div><h5>&copy; Ing. Burkhard Kaar, 8580 Köflach, Austria</h5></div>
             <!-- ID und standardmäßig disabled hinzugefügt -->
             <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
         </form><!-- Ergänze diese CSS-Styles (entweder in deiner CSS-Datei oder im <style>-Block) -->
@@ -438,6 +439,7 @@ table th:last-child, table td:last-child {
             </tbody>
         </table>
         {{end}}
+        
     </div>
 </body>
 
