@@ -170,7 +170,7 @@ const htmlTemplate = `
 
 <body>
     <div class="card">
-        <h2>Massenberechnung Kläranlage</h2>
+        <h1>Massenberechnung Kläranlage</h1>
 
         <form method="POST" id="calcForm">
             <div class="grid">
