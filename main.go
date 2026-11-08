@@ -9,7 +9,6 @@ import (
 	"strconv"
 )
 
-// Ihre Datenstruktur für das Template
 type AnlageData struct {
 	LaengeVB               float64
 	BreiteVB               float64
@@ -49,13 +48,14 @@ type AnlageData struct {
 	Berechnet               bool
 }
 
-// Das saubere HTML-Template als String (ohne "cm"-Funktion, nutzt wieder "value")
+// Setze hier im htmlTemplate-String einfach dein komplettes, originales CSS & Layout wieder ein!
 const htmlTemplate = `
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Massenberechnung</title>
+    <title>Massenberechnung Kläranlage</title>
     <style>
+        /* HIER DEIN ORIGINALES CSS EINFÜGEN */
         .grid { display: flex; gap: 20px; }
         .box { border: 1px solid #ccc; padding: 20px; flex: 1; }
         .form-group { margin-bottom: 15px; }
@@ -119,6 +119,10 @@ const htmlTemplate = `
         </div>
         <button type="submit">Berechnung starten</button>
     </form>
+
+    {{if .Berechnet}}
+        <!-- HIER DEINE ORIGINALEN AUSGABEFELDER FÜR DIE ERGEBNISSE EINFÜGEN -->
+    {{end}}
 </body>
 </html>
 `
@@ -160,7 +164,7 @@ func main() {
 		const bWandVB = 0.18
 		const bWandNB = 0.15
 
-		// Berechnungen nutzen die Meter-Variablen
+		// Berechnungen nutzen konsequent die neuen Meter-Variablen
 		data.VolumenVB = data.LaengeVB * data.BreiteVB * data.HoeheVB * data.AnzahlVB
 		gVolVB := (data.LaengeVB + 2*wStaerkeVB_m) * (data.BreiteVB + 2*wStaerkeVB_m) * data.HoeheVB
 		iVolVB := data.LaengeVB * data.BreiteVB * data.HoeheVB
@@ -193,6 +197,7 @@ func main() {
 		data.Berechnet = true
 		tmpl.Execute(w, data)
 	})
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "10000"
