@@ -164,6 +164,17 @@ const htmlTemplate = `
             text-align: right;
         }
 
+        /* Erzwingt eine einheitliche Spaltenaufteilung in allen Tabellen */
+        table th:first-child,
+        table td:first-child {
+            width: 70%;
+        }
+
+        table th:last-child,
+        table td:last-child {
+            width: 30%;
+        }
+
     </style>
 </head>
 
