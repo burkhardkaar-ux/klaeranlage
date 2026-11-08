@@ -56,20 +56,20 @@ const htmlTemplate = `
             <div class="grid">
                 <div class="box">
                     <h3>Vorklärbecken (Rechteck)</h3>
-                    <div class="form-group"><label>Länge (m):</label><input type="number" step="0.01" name="laengeVB" value="15.00"></div>
-                    <div class="form-group"><label>Breite (m):</label><input type="number" step="0.01" name="breiteVB" value="6.00"></div>
-                    <div class="form-group"><label>Höhe (m):</label><input type="number" step="0.01" name="hoeheVB" value="4.00"></div>
-                    <div class="form-group"><label>Wandstärke (cm):</label><input type="number" step="0.1" name="wandstaerkeVB" value="35.0"></div>
-                    <div class="form-group"><label>Fundamentstärke (cm):</label><input type="number" step="0.1" name="fundamentdickeVB" value="40.0"></div>
-                    <div class="form-group"><label>Anzahl:</label><input type="number" name="anzahlVB" value="2"></div>
+                    <div class="form-group"><label>Länge (m):</label><input type="number" step="0.01" name="laengeVB" value=""></div>
+                    <div class="form-group"><label>Breite (m):</label><input type="number" step="0.01" name="breiteVB" value=""></div>
+                    <div class="form-group"><label>Höhe (m):</label><input type="number" step="0.01" name="hoeheVB" value=""></div>
+                    <div class="form-group"><label>Wandstärke (cm):</label><input type="number" step="0.1" name="wandstaerkeVB" value=""></div>
+                    <div class="form-group"><label>Fundamentstärke (cm):</label><input type="number" step="0.1" name="fundamentdickeVB" value=""></div>
+                    <div class="form-group"><label>Anzahl:</label><input type="number" name="anzahlVB" value=""></div>
                 </div>
                 <div class="box">
                     <h3>Nachklärbecken (Rund)</h3>
-                    <div class="form-group"><label>Durchmesser (m):</label><input type="number" step="0.01" name="durchmesserNB" value="20.00"></div>
-                    <div class="form-group"><label>Höhe (m):</label><input type="number" step="0.01" name="hoeheNB" value="3.50"></div>
-                    <div class="form-group"><label>Wandstärke (cm):</label><input type="number" step="0.1" name="wandstaerkeNB" value="30.0"></div>
-                    <div class="form-group"><label>Fundamentstärke (cm):</label><input type="number" step="0.1" name="fundamentdickeNB" value="40.0"></div>
-                    <div class="form-group"><label>Anzahl:</label><input type="number" name="anzahlNB" value="2"></div>
+                    <div class="form-group"><label>Durchmesser (m):</label><input type="number" step="0.01" name="durchmesserNB" value=""></div>
+                    <div class="form-group"><label>Höhe (m):</label><input type="number" step="0.01" name="hoeheNB" value=""></div>
+                    <div class="form-group"><label>Wandstärke (cm):</label><input type="number" step="0.1" name="wandstaerkeNB" value=""></div>
+                    <div class="form-group"><label>Fundamentstärke (cm):</label><input type="number" step="0.1" name="fundamentdickeNB" value=""></div>
+                    <div class="form-group"><label>Anzahl:</label><input type="number" name="anzahlNB" value=""></div>
                 </div>
             </div>
             <button type="submit">Berechnung starten</button>
