@@ -37,7 +37,7 @@ const htmlTemplate = `
         @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
         .box { background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; }
         .form-group { margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        label { font-size: 14px; font-weight: bold; color: #428787; }
+        label { font-size: 14px; font-weight: bold; color: #475569; }
         input[type="number"] { width: 100px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; }
         button { background: ##428787; color: white; border: none; padding: 12px; cursor: pointer; font-size: 16px; border-radius: 4px; width: 100%; font-weight: bold; transition: background 0.2s; }
         button:hover { background: #336666; }
