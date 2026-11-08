@@ -52,61 +52,91 @@ const htmlTemplate = `<!DOCTYPE html>
     <div class="card">
         <h2>Massenberechnung einer Kläranlage</h2>
         
-        <form method="POST">
-            <div class="grid">
-                <div class="box">
-                    <h3>Vorklärbecken (Rechteck)</h3>
-                    <div class="form-group">
-                        <label>Länge (m):</label>
-                        <input type="number" step="0.01" name="laengeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{end}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Breite (m):</label>
-                        <input type="number" step="0.01" name="breiteVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{end}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Höhe (m):</label>
-                        <input type="number" step="0.01" name="hoeheVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{end}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Wandstärke (cm):</label>
-                        <input type="number" step="0.1" name="wandstaerkeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Fundamentstärke (cm):</label>
-                        <input type="number" step="0.1" name="fundamentdickeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{end}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Anzahl:</label>
-                        <input type="number" name="anzahlVB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlVB}}{{end}}">
-                    </div>
-                </div>
-                <div class="box">
-                    <h3>Nachklärbecken (Rund)</h3>
-                    <div class="form-group">
-                        <label>Durchmesser (m):</label>
-                        <input type="number" step="0.01" name="durchmesserNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .DurchmesserNB}}{{end}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Höhe (m):</label>
-                        <input type="number" step="0.01" name="hoeheNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{end}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Wandstärke (cm):</label>
-                        <input type="number" step="0.1" name="wandstaerkeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{end}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Fundamentstärke (cm):</label>
-                        <input type="number" step="0.1" name="fundamentdickeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{end}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Anzahl:</label>
-                        <input type="number" name="anzahlNB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlNB}}{{end}}">
-                    </div>
-                </div>
+        <form method="POST" id="calcForm">
+    <div class="grid">
+        <div class="box">
+            <h3>Vorklärbecken (Rechteck)</h3>
+            <div class="form-group">
+                <label>Länge (m):</label>
+                <!-- required hinzugefügt -->
+                <input type="number" step="0.01" name="laengeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{end}}" required>
             </div>
-            <button type="submit">Berechnung starten</button>
-        </form>
+            <div class="form-group">
+                <label>Breite (m):</label>
+                <input type="number" step="0.01" name="breiteVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{end}}" required>
+            </div>
+            <div class="form-group">
+                <label>Höhe (m):</label>
+                <input type="number" step="0.01" name="hoeheVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{end}}" required>
+            </div>
+            <div class="form-group">
+                <label>Wandstärke (cm):</label>
+                <input type="number" step="0.1" name="wandstaerkeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}" required>
+            </div>
+            <div class="form-group">
+                <label>Fundamentstärke (cm):</label>
+                <input type="number" step="0.1" name="fundamentdickeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{end}}" required>
+            </div>
+            <div class="form-group">
+                <label>Anzahl:</label>
+                <input type="number" name="anzahlVB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlVB}}{{end}}" required>
+            </div>
+        </div>
+        <div class="box">
+            <h3>Nachklärbecken (Rund)</h3>
+            <div class="form-group">
+                <label>Durchmesser (m):</label>
+                <input type="number" step="0.01" name="durchmesserNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .DurchmesserNB}}{{end}}" required>
+            </div>
+            <div class="form-group">
+                <label>Höhe (m):</label>
+                <input type="number" step="0.01" name="hoeheNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{end}}" required>
+            </div>
+            <div class="form-group">
+                <label>Wandstärke (cm):</label>
+                <input type="number" step="0.1" name="wandstaerkeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{end}}" required>
+            </div>
+            <div class="form-group">
+                <label>Fundamentstärke (cm):</label>
+                <input type="number" step="0.1" name="fundamentdickeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{end}}" required>
+            </div>
+            <div class="form-group">
+                <label>Anzahl:</label>
+                <input type="number" name="anzahlNB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlNB}}{{end}}" required>
+            </div>
+        </div>
+    </div>
+    <!-- ID und standardmäßig disabled hinzugefügt -->
+    <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
+</form>
+
+<script>
+    const form = document.getElementById('calcForm');
+    const button = document.getElementById('submitBtn');
+    const inputs = form.querySelectorAll('input[required]');
+
+    function checkInputs() {
+        // Prüft, ob ALLE erforderlichen Felder gültig ausgefüllt sind
+        const allFilled = form.checkValidity();
+        button.disabled = !allFilled;
+        
+        // Optisches Feedback (Ausgrauen)
+        if (allFilled) {
+            button.style.backgroundColor = '#428787';
+            button.style.cursor = 'pointer';
+        } else {
+            button.style.backgroundColor = '#94a3b8'; // Grau
+            button.style.cursor = 'not-allowed';
+        }
+    }
+
+    // Bei jeder Tastatureingabe oder Änderung prüfen
+    form.addEventListener('input', checkInputs);
+
+    // Einmaliger Check beim Laden der Seite (falls Werte vom Go-Backend drinstehen)
+    document.addEventListener('DOMContentLoaded', checkInputs);
+</script>
+
 
         {{if .Berechnet}}
         <h2 class="result-title">Berechnungsergebnisse</h2>
