@@ -76,7 +76,7 @@ const htmlTemplate = `
         </form>
 
         {{if .Berechnet}}
-        <h2 class="result-title">Berechnungsergebnisse</h2>
+        <h2>Berechnungsergebnisse</h2>
         
         <h3>Rohbaumassen Vorklärbecken</h3>
         <table class="table-vb">
