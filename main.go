@@ -70,7 +70,7 @@ const htmlTemplate = `<!DOCTYPE html>
                     </div>
                     <div class="form-group">
                         <label>Wandstärke (cm):</label>
-                        <input type="number" step="0.1" name="wandstaerkeVB" placeholder="00.0" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}">
+                        <input type="number" step="0.1" name="wandstaerkeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}">
                     </div>
                     <div class="form-group">
                         <label>Fundamentstärke (cm):</label>
