@@ -28,7 +28,6 @@ const htmlTemplate = `
 
 <head>
     <meta charset="UTF-8">
-    <!-- 1. DIESER TAG FEHLTE: Sorgt für die korrekte Skalierung auf Smartphones -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Massenberechnung Kläranlage</title>
     <style>
@@ -228,35 +227,57 @@ const htmlTemplate = `
             </div>
             <!-- ID und standardmäßig disabled hinzugefügt -->
             <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
-        </form>
+        </form><!-- Ergänze diese CSS-Styles (entweder in deiner CSS-Datei oder im <style>-Block) -->
+        <style>
+    /* Standard-Design für den aktiven Button */
+    button {
+        background: #428787;
+        color: white;
+        border: none;
+        padding: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 4px;
+        width: 100%;
+        font-weight: bold;
+        transition: all 0.2s;
+    }
 
-        <script>
-            const form = document.getElementById('calcForm');
-            const button = document.getElementById('submitBtn');
-            const inputs = form.querySelectorAll('input[required]');
+    button:hover:not(:disabled) {
+        background: #336666;
+    }
 
-            function checkInputs() {
-                // Prüft, ob ALLE erforderlichen Felder gültig ausgefüllt sind
-                const allFilled = form.checkValidity();
-                button.disabled = !allFilled;
+    /* Zwingt den inaktiven Button, das helle Grau anzunehmen */
+    button:disabled {
+        background: #cbd5e1 !important; /* Überschreibt das #428787 */
+        color: #94a3b8 !important;      /* Dunklerer grauer Text */
+        cursor: not-allowed !important; /* Zeigt das Blockieren-Symbol */
+        opacity: 0.7;
+    }
+</style>
+        
+<script>
+    // Nutzt die korrekte ID 'calcForm' Ihres Formulars
+    const form = document.getElementById('calcForm');
+    const submitBtn = document.getElementById('submitBtn');
 
-                // Optisches Feedback (Ausgrauen)
-                if (allFilled) {
-                    button.style.backgroundColor = '#428787';
-                    button.style.cursor = 'pointer';
-                } else {
-                    button.style.backgroundColor = '#94a3b8;'; // Grau
-                    button.style.cursor = 'not-allowed';
-                }
-            }
+    function pruefeFormular() {
+        // checkValidity() prüft automatisch alle Felder mit "required"
+        if (form && form.checkValidity()) {
+            submitBtn.removeAttribute('disabled');
+        } else {
+            submitBtn.setAttribute('disabled', 'true');
+        }
+    }
 
-            // Bei jeder Tastatureingabe oder Änderung prüfen
-            form.addEventListener('input', checkInputs);
-
-            // Einmaliger Check beim Laden der Seite (falls Werte vom Go-Backend drinstehen)
-            document.addEventListener('DOMContentLoaded', checkInputs);
-
-        </script>
+    if (form) {
+        // Lauscht auf jede Eingabe in den Formularfeldern
+        form.addEventListener('input', pruefeFormular);
+        
+        // Einmal beim Laden ausführen (falls Go bereits Werte mitgegeben hat)
+        pruefeFormular();
+    }
+</script>
 
 
         {{if .Berechnet}}
