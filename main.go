@@ -164,16 +164,21 @@ const htmlTemplate = `
             text-align: right;
         }
 
-        /* Erzwingt eine einheitliche Spaltenaufteilung in allen Tabellen */
-        table th:first-child,
-        table td:first-child {
-            width: 65%;
-        }
+        /* Erzwingt eine exakte Aufteilung in allen Ergebnistabellen */
+table {
+    table-layout: fixed; /* Zwingt den Browser, feste Breiten zu respektieren */
+    width: 100%;
+}
 
-        table th:last-child,
-        table td:last-child {
-            width: 35%;
-        }
+table th:first-child, table td:first-child {
+    width: 60% !important;
+    box-sizing: border-box;
+}
+
+table th:last-child, table td:last-child {
+    width: 40% !important;
+    box-sizing: border-box;
+}
 
     </style>
 </head>
