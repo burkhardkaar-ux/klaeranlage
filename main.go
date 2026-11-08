@@ -58,56 +58,55 @@ const htmlTemplate = `
             <h3>Vorklärbecken (Rechteck)</h3>
             <div class="form-group">
                 <label>Länge (m):</label>
-                <input type="number" step="0.01" name="laengeVB" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{else}}60.00{{end}}">
+                <input type="number" step="0.01" name="laengeVB" placeholder="60.00" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Breite (m):</label>
-                <input type="number" step="0.01" name="breiteVB" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{else}}30.00{{end}}">
+                <input type="number" step="0.01" name="breiteVB" placeholder="30.00" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Höhe (m):</label>
-                <input type="number" step="0.01" name="hoeheVB" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{else}}8.00{{end}}">
+                <input type="number" step="0.01" name="hoeheVB" placeholder="8.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Wandstärke (cm):</label>
-                <input type="number" step="0.1" name="wandstaerkeVB" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{else}}80.0{{end}}">
+                <input type="number" step="0.1" name="wandstaerkeVB" placeholder="80.0" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Fundamentstärke (cm):</label>
-                <input type="number" step="0.1" name="fundamentdickeVB" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{else}}90.0{{end}}">
+                <input type="number" step="0.1" name="fundamentdickeVB" placeholder="90.0" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Anzahl:</label>
-                <input type="number" name="anzahlVB" value="{{if .Berechnet}}{{.AnzahlVB}}{{else}}2{{end}}">
+                <input type="number" name="anzahlVB" placeholder="2" value="{{if .Berechnet}}{{.AnzahlVB}}{{end}}">
             </div>
         </div>
         <div class="box">
             <h3>Nachklärbecken (Rund)</h3>
             <div class="form-group">
                 <label>Durchmesser (m):</label>
-                <input type="number" step="0.01" name="durchmesserNB" value="{{if .Berechnet}}{{printf "%.2f" .DurchmesserNB}}{{else}}30.00{{end}}">
+                <input type="number" step="0.01" name="durchmesserNB" placeholder="30.00" value="{{if .Berechnet}}{{printf "%.2f" .DurchmesserNB}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Höhe (m):</label>
-                <input type="number" step="0.01" name="hoeheNB" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{else}}7.00{{end}}">
+                <input type="number" step="0.01" name="hoeheNB" placeholder="7.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Wandstärke (cm):</label>
-                <input type="number" step="0.1" name="wandstaerkeNB" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{else}}50.0{{end}}">
+                <input type="number" step="0.1" name="wandstaerkeNB" placeholder="50.0" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Fundamentstärke (cm):</label>
-                <input type="number" step="0.1" name="fundamentdickeNB" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{else}}80.0{{end}}">
+                <input type="number" step="0.1" name="fundamentdickeNB" placeholder="80.0" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{end}}">
             </div>
             <div class="form-group">
                 <label>Anzahl:</label>
-                <input type="number" name="anzahlNB" value="{{if .Berechnet}}{{.AnzahlNB}}{{else}}2{{end}}">
+                <input type="number" name="anzahlNB" placeholder="2" value="{{if .Berechnet}}{{.AnzahlNB}}{{end}}">
             </div>
         </div>
     </div>
     <button type="submit">Berechnung starten</button>
 </form>
-
 
         {{if .Berechnet}}
         <h2 class="result-title">Berechnungsergebnisse</h2>
