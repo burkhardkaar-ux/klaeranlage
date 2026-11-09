@@ -185,7 +185,7 @@ table th:last-child, table td:last-child {
 
 <body>
     <div class="card">
-        <h1>Massenberechnung für eine Kläranlage</h1>
+        <h1>Berechnungsprogramm Kläranlage</h1>
 
         <form method="POST" id="calcForm">
             <div class="grid">
