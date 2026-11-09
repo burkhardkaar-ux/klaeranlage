@@ -241,7 +241,7 @@ table th:last-child, table td:last-child {
                     </div>
                 </div>
             </div>
-            <div><h6>&copy; Ing. Burkhard Kaar, 8580 Köflach, Austria</h6></div>
+            <div><h6>&copy; Ing. Burkhard Kaar - Studienprojekt imperative Programmierung, Berechnung der Rohbaumassen einer Kläranlage</h6></div>
             <!-- ID und standardmäßig disabled hinzugefügt -->
             <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
         </form><!-- Ergänze diese CSS-Styles (entweder in deiner CSS-Datei oder im <style>-Block) -->
