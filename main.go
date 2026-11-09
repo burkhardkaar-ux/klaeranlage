@@ -24,7 +24,7 @@ type AnlageData struct {
 const htmlTemplate = `
 
 <!DOCTYPE html>
-<html>
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
@@ -43,7 +43,7 @@ const htmlTemplate = `
         .card {
             background: white;
             padding: 25px;
-            border-radius: 8px;
+            border-radius: 5px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
@@ -87,7 +87,7 @@ const htmlTemplate = `
         .box {
             background: #f8fafc;
             padding: 15px;
-            border-radius: 6px;
+            border-radius: 5px;
             border: 1px solid #e2e8f0;
         }
 
@@ -241,7 +241,7 @@ table th:last-child, table td:last-child {
                     </div>
                 </div>
             </div>
-            <div><h5>&copy; Ing. Burkhard Kaar, 8580 Köflach, Austria</h5></div>
+            <div><h6>&copy; Ing. Burkhard Kaar, 8580 Köflach, Austria</h6></div>
             <!-- ID und standardmäßig disabled hinzugefügt -->
             <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
         </form><!-- Ergänze diese CSS-Styles (entweder in deiner CSS-Datei oder im <style>-Block) -->
@@ -254,7 +254,7 @@ table th:last-child, table td:last-child {
                 padding: 12px;
                 cursor: pointer;
                 font-size: 16px;
-                border-radius: 4px;
+                border-radius: 5px;
                 width: 100%;
                 font-weight: bold;
                 transition: all 0.2s;
