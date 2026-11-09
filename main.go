@@ -185,7 +185,7 @@ table th:last-child, table td:last-child {
 
 <body>
     <div class="card">
-        <h1>Berechnungsprogramm Kläranlage</h1>
+        <h1>Massenberechnung Kläranlage</h1>
 
         <form method="POST" id="calcForm">
             <div class="grid">
@@ -403,7 +403,7 @@ table th:last-child, table td:last-child {
         </div>
 
         <!-- Die Gesamtmassen können darunter über die volle Breite stehen -->
-        <h3>Gesamtmassen Projekt</h3>
+        <h3>Gesamtrohbaumassen</h3>
         <table class="table-gesamt">
             <thead>
                 <tr>
