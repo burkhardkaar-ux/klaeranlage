@@ -414,27 +414,27 @@ table th:last-child, table td:last-child {
             <tbody>
                 <tr>
                     <td>Gesamtes Fassungsvermögen</td>
-                    <td class="r">{{printf "%.2f" .GesamtVolumen}} m³</td>
+                    <td class="r" style="background: #f8fafc;">{{printf "%.2f" .GesamtVolumen}} m³</td>
                 </tr>
                 <tr>
-                    <td>Gesamte Kubatur Beton</td>
-                    <td class="r">{{printf "%.2f" .GesamtKubaturBeton}} m³</td>
+                    <td style="background: #f8fafc;">Gesamte Kubatur Beton</td>
+                    <td class="r" style="background: #f8fafc;">{{printf "%.2f" .GesamtKubaturBeton}} m³</td>
                 </tr>
                 <tr>
-                    <td>Gesamte Wandschalung (Gerade)</td>
-                    <td class="r">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td>
+                    <td style="background: #f8fafc;">Gesamte Wandschalung (Gerade)</td>
+                    <td class="r" style="background: #f8fafc;">{{printf "%.2f" .GesamtWandSchalungGerad}} m²</td>
                 </tr>
                 <tr>
-                    <td>Gesamte Wandschalung (Rund)</td>
-                    <td class="r">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td>
+                    <td style="background: #f8fafc;">Gesamte Wandschalung (Rund)</td>
+                    <td class="r" style="background: #f8fafc;">{{printf "%.2f" .GesamtWandSchalungRund}} m²</td>
                 </tr>
                 <tr>
-                    <td>Gesamte Fundamentschalung</td>
-                    <td class="r">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td>
+                    <td style="background: #f8fafc;">Gesamte Fundamentschalung</td>
+                    <td class="r" style="background: #f8fafc;">{{printf "%.2f" .GesamtFundamentSchalung}} m²</td>
                 </tr>
                 <tr>
-                    <td>Gesamter Bewehrungsstahl</td>
-                    <td class="r">{{printf "%.2f" .GesamtBewehrung}} t</td>
+                    <td style="background: #f8fafc;">Gesamter Bewehrungsstahl</td>
+                    <td class="r" style="background: #f8fafc;">{{printf "%.2f" .GesamtBewehrung}} t</td>
                 </tr>
             </tbody>
         </table>
