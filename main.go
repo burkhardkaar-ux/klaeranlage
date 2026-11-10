@@ -152,11 +152,8 @@ const htmlTemplate = `
         }
 
         .table-vb tr:nth-child(even),
-        .table-nb tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-
-        .table-gesamt tr:nth-child(odd) {
+        .table-nb tr:nth-child(even),
+        .table-gesamt tr:nth-child(even) {
             background-color: #f8fafc;
         }
 
@@ -165,20 +162,23 @@ const htmlTemplate = `
         }
 
         /* Erzwingt eine exakte Aufteilung in allen Ergebnistabellen */
-table {
-    table-layout: fixed; /* Zwingt den Browser, feste Breiten zu respektieren */
-    width: 100%;
-}
+        table {
+            table-layout: fixed;
+            /* Zwingt den Browser, feste Breiten zu respektieren */
+            width: 100%;
+        }
 
-table th:first-child, table td:first-child {
-    width: 60% !important;
-    box-sizing: border-box;
-}
+        table th:first-child,
+        table td:first-child {
+            width: 60% !important;
+            box-sizing: border-box;
+        }
 
-table th:last-child, table td:last-child {
-    width: 40% !important;
-    box-sizing: border-box;
-}
+        table th:last-child,
+        table td:last-child {
+            width: 40% !important;
+            box-sizing: border-box;
+        }
 
     </style>
 </head>
@@ -186,64 +186,29 @@ table th:last-child, table td:last-child {
 <body>
     <div class="card">
         <h1>Massenberechnung Kläranlage</h1>
-
         <form method="POST" id="calcForm">
             <div class="grid">
                 <div class="box">
                     <h3>Vorklärbecken (Rechteck)</h3>
-                    <div class="form-group">
-                        <label>Länge (m):</label>
-                        <!-- required hinzugefügt -->
-                        <input type="number" step="0.01" name="laengeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{end}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Breite (m):</label>
-                        <input type="number" step="0.01" name="breiteVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{end}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Höhe (m):</label>
-                        <input type="number" step="0.01" name="hoeheVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{end}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Wandstärke (cm):</label>
-                        <input type="number" step="0.1" name="wandstaerkeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Fundamentstärke (cm):</label>
-                        <input type="number" step="0.1" name="fundamentdickeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{end}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Anzahl:</label>
-                        <input type="number" name="anzahlVB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlVB}}{{end}}" required>
-                    </div>
+                    <div class="form-group"> <label>Länge (m):</label> <!-- required hinzugefügt --> <input type="number" step="0.01" name="laengeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Breite (m):</label> <input type="number" step="0.01" name="breiteVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Höhe (m):</label> <input type="number" step="0.01" name="hoeheVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Wandstärke (cm):</label> <input type="number" step="0.1" name="wandstaerkeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Fundamentstärke (cm):</label> <input type="number" step="0.1" name="fundamentdickeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeVB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Anzahl:</label> <input type="number" name="anzahlVB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlVB}}{{end}}" required> </div>
                 </div>
                 <div class="box">
                     <h3>Nachklärbecken (Rund)</h3>
-                    <div class="form-group">
-                        <label>Durchmesser (m):</label>
-                        <input type="number" step="0.01" name="durchmesserNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .DurchmesserNB}}{{end}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Höhe (m):</label>
-                        <input type="number" step="0.01" name="hoeheNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{end}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Wandstärke (cm):</label>
-                        <input type="number" step="0.1" name="wandstaerkeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{end}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Fundamentstärke (cm):</label>
-                        <input type="number" step="0.1" name="fundamentdickeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{end}}" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Anzahl:</label>
-                        <input type="number" name="anzahlNB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlNB}}{{end}}" required>
-                    </div>
+                    <div class="form-group"> <label>Durchmesser (m):</label> <input type="number" step="0.01" name="durchmesserNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .DurchmesserNB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Höhe (m):</label> <input type="number" step="0.01" name="hoeheNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheNB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Wandstärke (cm):</label> <input type="number" step="0.1" name="wandstaerkeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeNB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Fundamentstärke (cm):</label> <input type="number" step="0.1" name="fundamentdickeNB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .FundamentdickeNB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Anzahl:</label> <input type="number" name="anzahlNB" placeholder="0" value="{{if .Berechnet}}{{.AnzahlNB}}{{end}}" required> </div>
                 </div>
             </div>
-            <div><h6>&copy; Ing. Burkhard Kaar - Studienprojekt imperative Programmierung, Berechnung der Rohbaumassen einer Kläranlage</h6></div>
-            <!-- ID und standardmäßig disabled hinzugefügt -->
-            <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
+            <div>
+                <h6>&copy; Ing. Burkhard Kaar - Studienprojekt imperative Programmierung, Berechnung der Rohbaumassen einer Kläranlage</h6>
+            </div> <!-- ID und standardmäßig disabled hinzugefügt --> <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
         </form><!-- Ergänze diese CSS-Styles (entweder in deiner CSS-Datei oder im <style>-Block) -->
         <style>
             /* Standard-Design für den aktiven Button */
@@ -276,36 +241,11 @@ table th:last-child, table td:last-child {
             }
 
         </style>
-
         <script>
-            // Nutzt die korrekte ID 'calcForm' Ihres Formulars
-            const form = document.getElementById('calcForm');
-            const submitBtn = document.getElementById('submitBtn');
+            // Nutzt die korrekte ID 'calcForm' Ihres Formulars const form = document.getElementById('calcForm'); const submitBtn = document.getElementById('submitBtn'); function pruefeFormular() { // checkValidity() prüft automatisch alle Felder mit "required" if (form && form.checkValidity()) { submitBtn.removeAttribute('disabled'); } else { submitBtn.setAttribute('disabled', 'true'); } } if (form) { // Lauscht auf jede Eingabe in den Formularfeldern form.addEventListener('input', pruefeFormular); // Einmal beim Laden ausführen (falls Go bereits Werte mitgegeben hat) pruefeFormular(); } 
 
-            function pruefeFormular() {
-                // checkValidity() prüft automatisch alle Felder mit "required"
-                if (form && form.checkValidity()) {
-                    submitBtn.removeAttribute('disabled');
-                } else {
-                    submitBtn.setAttribute('disabled', 'true');
-                }
-            }
-
-            if (form) {
-                // Lauscht auf jede Eingabe in den Formularfeldern
-                form.addEventListener('input', pruefeFormular);
-
-                // Einmal beim Laden ausführen (falls Go bereits Werte mitgegeben hat)
-                pruefeFormular();
-            }
-
-        </script>
-
-
-        {{if .Berechnet}}
-        <h2 class="result-title">Berechnungsergebnisse</h2>
-
-        <!-- Neues Grid für die zweispaltige Aufteilung der Ergebnisse -->
+        </script> {{if .Berechnet}}
+        <h2 class="result-title">Berechnungsergebnisse</h2> <!-- Neues Grid für die zweispaltige Aufteilung der Ergebnisse -->
         <div class="grid">
             <!-- Linke Spalte: Vorklärbecken -->
             <div class="box">
@@ -352,9 +292,7 @@ table th:last-child, table td:last-child {
                         </tr>
                     </tbody>
                 </table>
-            </div>
-
-            <!-- Rechte Spalte: Nachklärbecken -->
+            </div> <!-- Rechte Spalte: Nachklärbecken -->
             <div class="box">
                 <h3>Rohbaumassen Nachklärbecken</h3>
                 <table class="table-nb">
@@ -400,9 +338,7 @@ table th:last-child, table td:last-child {
                     </tbody>
                 </table>
             </div>
-        </div>
-
-        <!-- Die Gesamtmassen können darunter über die volle Breite stehen -->
+        </div> <!-- Die Gesamtmassen können darunter über die volle Breite stehen -->
         <h3>Gesamtmassen Projekt</h3>
         <table class="table-gesamt">
             <thead>
@@ -437,9 +373,7 @@ table th:last-child, table td:last-child {
                     <td class="r">{{printf "%.2f" .GesamtBewehrung}} t</td>
                 </tr>
             </tbody>
-        </table>
-        {{end}}
-        
+        </table> {{end}}
     </div>
 </body>
 
