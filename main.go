@@ -29,7 +29,7 @@ const htmlTemplate = `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Massenberechnung Kläranlage</title>
+    <title>Berechnungsprogramm Kläranlage</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -241,7 +241,7 @@ table th:last-child, table td:last-child {
                     </div>
                 </div>
             </div>
-            <div><h6>&copy; Ing. Burkhard Kaar, 8580 Köflach, Austria</h6></div>
+            <div><h6>&copy; Ing. Burkhard Kaar - Studienprojekt imperative Programmierung, Berechnung der Rohbaumassen einer Kläranlage</h6></div>
             <!-- ID und standardmäßig disabled hinzugefügt -->
             <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
         </form><!-- Ergänze diese CSS-Styles (entweder in deiner CSS-Datei oder im <style>-Block) -->
@@ -403,7 +403,7 @@ table th:last-child, table td:last-child {
         </div>
 
         <!-- Die Gesamtmassen können darunter über die volle Breite stehen -->
-        <h3>Gesamtrohbaumassen</h3>
+        <h3>Gesamtmassen Projekt</h3>
         <table class="table-gesamt">
             <thead>
                 <tr>
