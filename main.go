@@ -104,7 +104,6 @@ const htmlTemplate = `
             color: #475569;
         }
 
-        /* 2. HIER ANGEPASST: font-size: 16px verhindert den automatischen iOS-Zoom */
         input[type="number"] {
             width: 100px;
             padding: 6px;
@@ -129,6 +128,14 @@ const htmlTemplate = `
 
         button:hover {
             background: #336666;
+        }
+
+        /* Design für den inaktiven Button */
+        button:disabled {
+            background: #cbd5e1 !important;
+            color: #94a3b8 !important;
+            cursor: not-allowed !important;
+            opacity: 0.7;
         }
 
         table {
@@ -164,10 +171,8 @@ const htmlTemplate = `
             text-align: right;
         }
 
-        /* Erzwingt eine exakte Aufteilung in allen Ergebnistabellen */
         table {
             table-layout: fixed;
-            /* Zwingt den Browser, feste Breiten zu respektieren */
             width: 100%;
         }
 
@@ -182,6 +187,7 @@ const htmlTemplate = `
             width: 40% !important;
             box-sizing: border-box;
         }
+
     </style>
 </head>
 
@@ -192,7 +198,7 @@ const htmlTemplate = `
             <div class="grid">
                 <div class="box">
                     <h3>Vorklärbecken (Rechteck)</h3>
-                    <div class="form-group"> <label>Länge (m):</label> <!-- required hinzugefügt --> <input type="number" step="0.01" name="laengeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{end}}" required> </div>
+                    <div class="form-group"> <label>Länge (m):</label> <input type="number" step="0.01" name="laengeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .LaengeVB}}{{end}}" required> </div>
                     <div class="form-group"> <label>Breite (m):</label> <input type="number" step="0.01" name="breiteVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .BreiteVB}}{{end}}" required> </div>
                     <div class="form-group"> <label>Höhe (m):</label> <input type="number" step="0.01" name="hoeheVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.2f" .HoeheVB}}{{end}}" required> </div>
                     <div class="form-group"> <label>Wandstärke (cm):</label> <input type="number" step="0.1" name="wandstaerkeVB" placeholder="00.00" value="{{if .Berechnet}}{{printf "%.1f" .WandstaerkeVB}}{{end}}" required> </div>
@@ -210,44 +216,27 @@ const htmlTemplate = `
             </div>
             <div>
                 <h6>&copy; Ing. Burkhard Kaar - Studienprojekt imperative Programmierung, Berechnung der Rohbaumassen einer Kläranlage</h6>
-            </div> <!-- ID und standardmäßig disabled hinzugefügt --> <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
-        </form><!-- Ergänze diese CSS-Styles (entweder in deiner CSS-Datei oder im <style>-Block) -->
-        <style>
-            /* Standard-Design für den aktiven Button */
-            button {
-                background: #428787;
-                color: white;
-                border: none;
-                padding: 12px;
-                cursor: pointer;
-                font-size: 16px;
-                border-radius: 5px;
-                width: 100%;
-                font-weight: bold;
-                transition: all 0.2s;
-            }
-
-            button:hover:not(:disabled) {
-                background: #336666;
-            }
-
-            /* Zwingt den inaktiven Button, das helle Grau anzunehmen */
-            button:disabled {
-                background: #cbd5e1 !important;
-                /* Überschreibt das #428787 */
-                color: #94a3b8 !important;
-                /* Dunklerer grauer Text */
-                cursor: not-allowed !important;
-                /* Zeigt das Blockieren-Symbol */
-                opacity: 0.7;
-            }
-        </style>
+            </div> <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
+        </form>
         <script>
-            // Nutzt die korrekte ID 'calcForm' Ihres Formulars const form = document.getElementById('calcForm'); const submitBtn = document.getElementById('submitBtn'); function pruefeFormular() { // checkValidity() prüft automatisch alle Felder mit "required" if (form && form.checkValidity()) { submitBtn.removeAttribute('disabled'); } else { submitBtn.setAttribute('disabled', 'true'); } } if (form) { // Lauscht auf jede Eingabe in den Formularfeldern form.addEventListener('input', pruefeFormular); // Einmal beim Laden ausführen (falls Go bereits Werte mitgegeben hat) pruefeFormular(); } 
+            const form = document.getElementById('calcForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            function pruefeFormular() {
+                if (form && form.checkValidity()) {
+                    submitBtn.removeAttribute('disabled');
+                } else {
+                    submitBtn.setAttribute('disabled', 'true');
+                }
+            }
+            if (form) {
+                form.addEventListener('input', pruefeFormular);
+                pruefeFormular();
+            }
+
         </script> {{if .Berechnet}}
-        <h2 class="result-title">Berechnungsergebnisse</h2> <!-- Neues Grid für die zweispaltige Aufteilung der Ergebnisse -->
+        <h2 class="result-title">Berechnungsergebnisse</h2>
         <div class="grid">
-            <!-- Linke Spalte: Vorklärbecken -->
             <div class="box">
                 <h3>Rohbaumassen Vorklärbecken</h3>
                 <table class="table-vb">
@@ -292,7 +281,7 @@ const htmlTemplate = `
                         </tr>
                     </tbody>
                 </table>
-            </div> <!-- Rechte Spalte: Nachklärbecken -->
+            </div>
             <div class="box">
                 <h3>Rohbaumassen Nachklärbecken</h3>
                 <table class="table-nb">
@@ -338,7 +327,7 @@ const htmlTemplate = `
                     </tbody>
                 </table>
             </div>
-        </div> <!-- NUR HIER GEÄNDERT: Tabelle in den Box-Container mit einheitlicher Hintergrundfarbe gepackt -->
+        </div>
         <div class="box">
             <h3>Gesamtmassen Projekt</h3>
             <table class="table-gesamt">
