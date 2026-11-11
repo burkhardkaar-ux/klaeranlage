@@ -165,20 +165,23 @@ const htmlTemplate = `
         }
 
         /* Erzwingt eine exakte Aufteilung in allen Ergebnistabellen */
-table {
-    table-layout: fixed; /* Zwingt den Browser, feste Breiten zu respektieren */
-    width: 100%;
-}
+        table {
+            table-layout: fixed;
+            /* Zwingt den Browser, feste Breiten zu respektieren */
+            width: 100%;
+        }
 
-table th:first-child, table td:first-child {
-    width: 60% !important;
-    box-sizing: border-box;
-}
+        table th:first-child,
+        table td:first-child {
+            width: 60% !important;
+            box-sizing: border-box;
+        }
 
-table th:last-child, table td:last-child {
-    width: 40% !important;
-    box-sizing: border-box;
-}
+        table th:last-child,
+        table td:last-child {
+            width: 40% !important;
+            box-sizing: border-box;
+        }
 
     </style>
 </head>
@@ -241,7 +244,9 @@ table th:last-child, table td:last-child {
                     </div>
                 </div>
             </div>
-            <div><h6>&copy; Ing. Burkhard Kaar - Studienprojekt imperative Programmierung, Berechnung der Rohbaumassen einer Kläranlage</h6></div>
+            <div>
+                <h6>&copy; Ing. Burkhard Kaar - Studienprojekt imperative Programmierung, Berechnung der Rohbaumassen einer Kläranlage</h6>
+            </div>
             <!-- ID und standardmäßig disabled hinzugefügt -->
             <button type="submit" id="submitBtn" disabled>Berechnung starten</button>
         </form><!-- Ergänze diese CSS-Styles (entweder in deiner CSS-Datei oder im <style>-Block) -->
@@ -298,6 +303,25 @@ table th:last-child, table td:last-child {
                 // Einmal beim Laden ausführen (falls Go bereits Werte mitgegeben hat)
                 pruefeFormular();
             }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var form = document.getElementById('stromForm');
+                if (form) {
+                    form.addEventListener('input', pruefeFormular);
+                }
+                pruefeFormular();
+
+                // DIESER TEIL SCHIEBT DAS FORMULAR NACH OBEN, WENN DIE ERGEBNISSE DA SIND:
+                // Der Server fügt bei erfolgreicher Berechnung das <h2>-Element ein.
+                // Sobald dieses Element im Browser existiert, scrollt die Seite automatisch dorthin.
+                var ergebnisUeberschrift = document.querySelector('h2');
+                if (ergebnisUeberschrift) {
+                    ergebnisUeberschrift.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
 
         </script>
 
@@ -439,7 +463,7 @@ table th:last-child, table td:last-child {
             </tbody>
         </table>
         {{end}}
-        
+
     </div>
 </body>
 
