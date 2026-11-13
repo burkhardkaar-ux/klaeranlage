@@ -36,7 +36,7 @@ const htmlTemplate = `
             max-width: 800px;
             margin: 20px auto;
             padding: 20px;
-            background: #000000;
+            background: #141150 !important;
             color: #333;
         }
 
