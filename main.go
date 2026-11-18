@@ -193,7 +193,7 @@ const htmlTemplate = `
         <form method="POST" id="calcForm">
             <div class="grid">
                 <div class="box">
-                    <h3>Vorklärbecken (Rechteck)</h3>
+                    <h3>Belebungsbecken (Rechteck)</h3>
                     <div class="form-group">
                         <label>Länge (m):</label>
                         <!-- required hinzugefügt -->
@@ -331,9 +331,9 @@ const htmlTemplate = `
 
         <!-- Neues Grid für die zweispaltige Aufteilung der Ergebnisse -->
         <div class="grid">
-            <!-- Linke Spalte: Vorklärbecken -->
+            <!-- Linke Spalte: Belebungsbecken -->
             <div class="box">
-                <h3>Rohbaumassen Vorklärbecken</h3>
+                <h3>Rohbaumassen Belebungsbecken</h3>
                 <table class="table-vb">
                     <thead>
                         <tr>
