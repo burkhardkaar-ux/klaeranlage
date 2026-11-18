@@ -173,13 +173,13 @@ const htmlTemplate = `
 
         table th:first-child,
         table td:first-child {
-            width: 70% !important;
+            width: 60% !important;
             box-sizing: border-box;
         }
 
         table th:last-child,
         table td:last-child {
-            width: 30% !important;
+            width: 40% !important;
             box-sizing: border-box;
         }
 
